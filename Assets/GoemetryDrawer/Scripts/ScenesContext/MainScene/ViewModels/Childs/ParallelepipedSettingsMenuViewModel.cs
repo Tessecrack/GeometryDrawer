@@ -11,11 +11,6 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Child
 
         public event Action<float> OnChangedLength;
 
-        public ParallelepipedSettingsMenuViewModel(DIContainer container)
-        {
-            
-        }
-
         public void HandlerChangedWidth(float width)
         {
             OnChangedWidth?.Invoke(width);

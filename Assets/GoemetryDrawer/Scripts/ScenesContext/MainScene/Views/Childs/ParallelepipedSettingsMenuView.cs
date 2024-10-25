@@ -1,4 +1,5 @@
 ﻿using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Childs;
+using Assets.GoemetryDrawer.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,15 +14,24 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
         [SerializeField] public Slider _sliderLength;
 
         private ParallelepipedSettingsMenuViewModel _viewModel;
-
-        public void Bind(ParallelepipedSettingsMenuViewModel viewModel)
+        [SerializeField] private ParallelepipedMesh _prefab;
+        private ParallelepipedMesh _instance;
+        public void Bind(ParallelepipedSettingsMenuViewModel viewModel, Transform point)
         {
             _viewModel = viewModel;
+
+            _instance = Instantiate(_prefab, point);
+        }
+
+        public void Update()
+        {
+            _instance.UpdateSize(_sliderHeight.value);
         }
 
         public void HandlerSliderHeight()
         {
             _viewModel.HandlerChangedHeight(_sliderHeight.value);
+            _instance.UpdateSize(_sliderHeight.value);
         }
 
         public void HandlerSliderWidth()
@@ -36,12 +46,12 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
 
         public override void Enable()
         {
-            // TODO
+            _instance.gameObject.SetActive(true);
         }
 
         public override void Disable()
         {
-            // TODO
+            _instance.gameObject.SetActive(false);
         }
     }
 }

@@ -4170,9 +4170,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1909809165381886141}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 200
-  m_WholeNumbers: 0
-  m_Value: 50
+  m_MaxValue: 20
+  m_WholeNumbers: 1
+  m_Value: 4
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -4427,6 +4427,7 @@ MonoBehaviour:
   _sliderHeight: {fileID: 9084674736131440892}
   _sliderWidth: {fileID: 6683391792309123141}
   _sliderLength: {fileID: 7419512362091401079}
+  _prefab: {fileID: 161849072734203803, guid: f6556329e6a0b5e46941a8a15fd75f02, type: 3}
 --- !u!1 &5637850897897172039
 GameObject:
   m_ObjectHideFlags: 0

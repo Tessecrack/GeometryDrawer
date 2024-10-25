@@ -29,14 +29,16 @@ public class MainSceneEntryPoint : MonoBehaviour
 
         var mainSceneViewModel = new MainSceneViewModel();
         var sphereViewModel = new SphereSettingsMenuViewModel();
-
+        var parallelepipedViewModel = new ParallelepipedSettingsMenuViewModel();
 
         mainSceneViewModel.OnSphereButtonClick   += HandlerSphereButtonClick;
         mainSceneViewModel.OnCapsuleButtonClick  += HandlerCapsuleButtonClick;
         mainSceneViewModel.OnPrismButtonClick    += HandlerPrismButtonClick;
         mainSceneViewModel.OnParallelepipedClick += HandlerParallelepipedClick;
+
         uiScene.View.Bind(mainSceneViewModel);
         uiScene.SphereSettingsView.Bind(sphereViewModel, _pointGenerationMesh);
+        uiScene.ParallelepipedSettingsView.Bind(parallelepipedViewModel, _pointGenerationMesh);
 
         _capsuleView = uiScene.CapsuleSettingsView;
         _paralView = uiScene.ParallelepipedSettingsView;
