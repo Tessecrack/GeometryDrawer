@@ -8,8 +8,9 @@ namespace Assets.GoemetryDrawer.Scripts.Root
 {
     public class Startup
     {
+        private const string BOOT = "BOOT";
         private const string MAIN_SCENE = "MainScene";
-
+        
         private static Startup _instance;
 
         private UIRoot _uiRoot; // monobeh
