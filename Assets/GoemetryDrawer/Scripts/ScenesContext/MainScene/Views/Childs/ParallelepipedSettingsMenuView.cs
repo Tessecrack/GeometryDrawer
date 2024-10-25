@@ -33,5 +33,15 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
         {
             _viewModel.HandlerChangedLength(_sliderLength.value);
         }
+
+        public override void Enable()
+        {
+            // TODO
+        }
+
+        public override void Disable()
+        {
+            // TODO
+        }
     }
 }

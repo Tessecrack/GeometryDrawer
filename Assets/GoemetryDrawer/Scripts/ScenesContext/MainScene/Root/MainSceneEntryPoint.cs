@@ -9,11 +9,13 @@ using UnityEngine;
 public class MainSceneEntryPoint : MonoBehaviour
 {
     [SerializeField] private UIMainSceneBinder _binderPrefab;
+    [SerializeField] private Transform _pointGenerationMesh;
 
     private CapsuleSettingsMenuView _capsuleView;
     private ParallelepipedSettingsMenuView _paralView;
     private PrismSettingsMenuView _prismView;
     private SphereSettingsMenuView _sphereView;
+    private ServicesMenuView _servicesView;
 
     public void Run(DIContainer container)
     {
@@ -23,8 +25,10 @@ public class MainSceneEntryPoint : MonoBehaviour
 
         uiRoot.AttachSceneUI(uiScene.gameObject);
 
+        container.RegisterInstance("point", _pointGenerationMesh);
+
         var mainSceneViewModel = new MainSceneViewModel();
-        var sphereViewModel = new SphereSettingsMenuViewModel(container);
+        var sphereViewModel = new SphereSettingsMenuViewModel();
 
 
         mainSceneViewModel.OnSphereButtonClick   += HandlerSphereButtonClick;
@@ -32,11 +36,15 @@ public class MainSceneEntryPoint : MonoBehaviour
         mainSceneViewModel.OnPrismButtonClick    += HandlerPrismButtonClick;
         mainSceneViewModel.OnParallelepipedClick += HandlerParallelepipedClick;
         uiScene.View.Bind(mainSceneViewModel);
+        uiScene.SphereSettingsView.Bind(sphereViewModel, _pointGenerationMesh);
 
         _capsuleView = uiScene.CapsuleSettingsView;
         _paralView = uiScene.ParallelepipedSettingsView;
         _prismView = uiScene.PrismSettingsView;
         _sphereView = uiScene.SphereSettingsView;
+        _servicesView = uiScene.ServicesMenuView;
+
+        HandlerSphereButtonClick();
     }
 
     public void HandlerSphereButtonClick()
@@ -45,7 +53,7 @@ public class MainSceneEntryPoint : MonoBehaviour
         _paralView.Hide();
         _prismView.Hide();
         _sphereView.Show();
-
+        _sphereView.Update();
         Debug.Log("SPHERE");
     }
 

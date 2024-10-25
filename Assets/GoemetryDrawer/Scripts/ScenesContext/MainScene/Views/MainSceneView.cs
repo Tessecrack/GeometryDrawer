@@ -30,5 +30,15 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views
         {
             _viewModel.HandlerParallelepipedClick();
         }
+
+        public override void Enable()
+        {
+            // TODO
+        }
+
+        public override void Disable()
+        {
+            // TODO
+        }
     }
 }

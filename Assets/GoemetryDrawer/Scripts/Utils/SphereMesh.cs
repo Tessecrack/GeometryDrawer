@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.GoemetryDrawer.Scripts.Utils
 {
-    [RequireComponent(typeof(MeshRenderer))]
-    [RequireComponent(typeof(MeshFilter))]
-    public class ParallelepipedMeshGenerator : MonoBehaviour
+    public class SphereMesh : MonoBehaviour
     {
         Mesh planeMesh;
         Mesh cubeMesh;
@@ -14,11 +13,11 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
         List<int> triangles = new List<int>();
 
         [SerializeField] float size;
-        [SerializeField] int resolution;
+        [SerializeField] int resolution = 20;
         [SerializeField] Vector3 origin;
-        [SerializeField] bool isSphere;
+        [SerializeField] bool isSphere = true;
 
-        [Range(0, 1)] public float morphValue;
+        [Range(0, 1)] public float morphValue = 1;
 
         //helper Variables
         float previousSize;
@@ -35,7 +34,30 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
             meshFilter.mesh = new Mesh();
         }
 
-        void UpdateData()
+        public void UpdateRadius(float newRadius)
+        {
+            size = newRadius;
+            UpdateData();
+        }
+
+        public void UpdateMorph(float newMorphValue) 
+        {
+            morphValue = newMorphValue;
+            UpdateData();
+        }
+
+        public void UpdateResolution(int newResolution)
+        {
+            resolution = newResolution;
+            UpdateData();
+        }
+
+        private void Update()
+        {
+            UpdateData();
+        }
+
+        private void UpdateData()
         {
             //clamps resolution avoid errors and performance issues
             resolution = Mathf.Clamp(resolution, 1, 30);

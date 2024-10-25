@@ -1,3 +1,4 @@
+using Assets.GoemetryDrawer.Scripts.DI;
 using System;
 
 namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Childs
@@ -9,6 +10,11 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Child
         public event Action<float> OnChangedHeight;
 
         public event Action<float> OnChangedLength;
+
+        public ParallelepipedSettingsMenuViewModel(DIContainer container)
+        {
+            
+        }
 
         public void HandlerChangedWidth(float width)
         {
