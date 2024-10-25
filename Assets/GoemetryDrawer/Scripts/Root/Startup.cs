@@ -3,12 +3,13 @@ using Assets.GoemetryDrawer.Scripts.DI;
 using Assets.GoemetryDrawer.Scripts.Utils;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.GoemetryDrawer.Scripts.Root
 {
     public class Startup
     {
-        private const string BOOT = "BOOT";
+        private const string BOOT_SCENE = "BOOT";
         private const string MAIN_SCENE = "MainScene";
         
         private static Startup _instance;
@@ -47,7 +48,19 @@ namespace Assets.GoemetryDrawer.Scripts.Root
 
         private IEnumerator ShowMainScene()
         {
-            yield return null;
+            yield return LoadScene(BOOT_SCENE);
+
+            yield return LoadScene(MAIN_SCENE);
+
+            var mainSceneEntryPoint = Object.FindFirstObjectByType<MainSceneEntryPoint>();
+
+            var mainSceneContainer = new DIContainer(_diContainer);
+            mainSceneEntryPoint.Run(mainSceneContainer);
+        }
+
+        private IEnumerator LoadScene(string sceneName)
+        {
+            yield return SceneManager.LoadSceneAsync(sceneName);
         }
     }
 }

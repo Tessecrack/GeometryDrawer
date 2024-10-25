@@ -6,7 +6,6 @@ namespace Assets.GoemetryDrawer.Scripts.Root
     {
         [SerializeField] private Transform _uiContainer;
 
-
         public void AttachSceneUI(GameObject sceneUI)
         {
             Clear();

@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d462bd477678854dada8d9d2cf2e613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _binder: {fileID: 370436793910812264, guid: 9126d15baaa65e64e804e23718b8107c, type: 3}
+  _binderPrefab: {fileID: 370436793910812264, guid: 9126d15baaa65e64e804e23718b8107c, type: 3}
 --- !u!1 &2031703516
 GameObject:
   m_ObjectHideFlags: 0
