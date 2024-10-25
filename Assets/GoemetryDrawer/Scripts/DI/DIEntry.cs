@@ -2,6 +2,7 @@
 
 namespace Assets.GoemetryDrawer.Scripts.DI
 {
+    
     public abstract class DIEntry : IDisposable
     {
         protected DIContainer Container { get; }
