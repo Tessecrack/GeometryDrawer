@@ -107,7 +107,7 @@ public class MainSceneEntryPoint : MonoBehaviour
 
     private void HandlerRotationY(float yValue)
     {
-        _cachedView.RotateZ(yValue);
+        _cachedView.RotateY(yValue);
     }
 
     private void HandlerRotationZ(float zValue)

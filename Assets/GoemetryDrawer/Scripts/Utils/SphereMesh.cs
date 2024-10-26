@@ -4,29 +4,29 @@ using UnityEngine;
 
 namespace Assets.GoemetryDrawer.Scripts.Utils
 {
-    public class SphereMesh : MonoBehaviour
+    public class SphereMesh : BaseMesh
     {
-        Mesh planeMesh;
-        Mesh cubeMesh;
-        MeshFilter meshFilter;
-        List<Vector3> vertices = new List<Vector3>();
-        List<int> triangles = new List<int>();
+        private Mesh planeMesh;
+        private Mesh cubeMesh;
+        private MeshFilter meshFilter;
+        private List<Vector3> vertices = new List<Vector3>();
+        private List<int> triangles = new List<int>();
 
-        [SerializeField] float size;
-        [SerializeField] int resolution = 20;
-        [SerializeField] Vector3 origin;
-        [SerializeField] bool isSphere = true;
+        [SerializeField] private float size;
+        [SerializeField] private int resolution = 20;
+        [SerializeField] private Vector3 origin;
+        [SerializeField] private bool isSphere = true;
 
         [Range(0, 1)] public float morphValue = 1;
 
         //helper Variables
-        float previousSize;
-        int previousResolution;
-        Vector3 previousOrigin;
-        bool previousSphereState;
-        float previousMorphValue;
+        private float previousSize;
+        private int previousResolution;
+        private Vector3 previousOrigin;
+        private bool previousSphereState;
+        private float previousMorphValue;
 
-        void Awake()
+        protected override void Initialize()
         {
             planeMesh = new Mesh();
             cubeMesh = new Mesh();

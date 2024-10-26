@@ -2,7 +2,7 @@
 
 namespace Assets.GoemetryDrawer.Scripts.Utils
 {
-    public class ParallelepipedMesh : MonoBehaviour
+    public class ParallelepipedMesh : BaseMesh
     {
         [SerializeField] private float _width = 5f;
         [SerializeField] private float _height = 5f;
@@ -19,7 +19,7 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
         private Vector3[] _vertices;
         private int[] _triangles;
 
-        private void Start()
+        protected override void Initialize()
         {
             _mesh = GetComponent<MeshFilter>().mesh;
 
