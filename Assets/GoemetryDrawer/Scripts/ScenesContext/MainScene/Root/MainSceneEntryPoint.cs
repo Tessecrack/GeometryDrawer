@@ -68,7 +68,6 @@ public class MainSceneEntryPoint : MonoBehaviour
         _prismView.Hide();
         _sphereView.Show();
         _cachedView = _sphereView;
-        _sphereView.Update();
         _sphereView.UpdatePosition(_pointGenerationMesh.position);
     }
 

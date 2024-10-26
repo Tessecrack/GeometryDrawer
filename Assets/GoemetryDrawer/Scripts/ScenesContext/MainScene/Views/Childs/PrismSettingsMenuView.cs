@@ -37,24 +37,19 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
             // TODO
         }
 
-        public override void UpdatePosition(Vector3 position)
-        {
-            //_instance.transform.position = position;
-        }
-
         public override void RotateX(float xValue)
         {
-            
+            // TODO
         }
 
         public override void RotateY(float yValue)
         {
-            
+            // TODO
         }
 
         public override void RotateZ(float zValue)
         {
-            
+            // TODO
         }
     }
 }
