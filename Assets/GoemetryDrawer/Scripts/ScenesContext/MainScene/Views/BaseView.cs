@@ -17,6 +17,8 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views
             Disable();
         }
 
+        public abstract void UpdatePosition(Vector3 position);
+
         public abstract void Enable();
 
         public abstract void Disable();

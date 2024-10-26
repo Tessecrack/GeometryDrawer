@@ -1,4 +1,5 @@
 ﻿using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels;
+using UnityEngine;
 
 namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views
 {
@@ -39,6 +40,11 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views
         public override void Disable()
         {
             // TODO
+        }
+
+        public override void UpdatePosition(Vector3 position)
+        {
+            // ITS WRONG
         }
     }
 }

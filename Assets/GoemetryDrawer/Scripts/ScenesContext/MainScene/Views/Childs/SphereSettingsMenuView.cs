@@ -18,7 +18,7 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
         {
             _viewModel = viewModel;
 
-            _instance = Instantiate(_prefab, point);
+            _instance = Instantiate(_prefab, point.position, Quaternion.identity);
         }
 
         public void Update()
@@ -47,6 +47,11 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
         public override void Disable()
         {
             _instance.gameObject.SetActive(false);
+        }
+
+        public override void UpdatePosition(Vector3 position)
+        {
+            _instance.transform.position = position;
         }
     }
 }

@@ -19,29 +19,25 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
         public void Bind(ParallelepipedSettingsMenuViewModel viewModel, Transform point)
         {
             _viewModel = viewModel;
-
-            _instance = Instantiate(_prefab, point);
-        }
-
-        public void Update()
-        {
-            _instance.UpdateSize(_sliderHeight.value);
+            _instance = Instantiate(_prefab, point.position, Quaternion.identity);
         }
 
         public void HandlerSliderHeight()
         {
             _viewModel.HandlerChangedHeight(_sliderHeight.value);
-            _instance.UpdateSize(_sliderHeight.value);
+            _instance.UpdateHeight(_sliderHeight.value);
         }
 
         public void HandlerSliderWidth()
         {
             _viewModel.HandlerChangedWidth(_sliderWidth.value);
+            _instance.UpdateWidth(_sliderWidth.value);
         }
 
         public void HandlerSliderLength()
         {
             _viewModel.HandlerChangedLength(_sliderLength.value);
+            _instance.UpdateLength(_sliderLength.value);
         }
 
         public override void Enable()
@@ -52,6 +48,11 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
         public override void Disable()
         {
             _instance.gameObject.SetActive(false);
+        }
+
+        public override void UpdatePosition(Vector3 position)
+        {
+            _instance.transform.position = position;
         }
     }
 }

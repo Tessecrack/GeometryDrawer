@@ -1,4 +1,5 @@
 ﻿using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Childs;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,6 +35,11 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
         public override void Disable()
         {
             // TODO
+        }
+
+        public override void UpdatePosition(Vector3 position)
+        {
+            //_instance.transform.position = position;
         }
     }
 }

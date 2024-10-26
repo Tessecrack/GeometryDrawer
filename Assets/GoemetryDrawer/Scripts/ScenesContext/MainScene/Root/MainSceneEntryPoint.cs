@@ -56,6 +56,7 @@ public class MainSceneEntryPoint : MonoBehaviour
         _prismView.Hide();
         _sphereView.Show();
         _sphereView.Update();
+        _sphereView.UpdatePosition(_pointGenerationMesh.position);
         Debug.Log("SPHERE");
     }
 
@@ -85,7 +86,7 @@ public class MainSceneEntryPoint : MonoBehaviour
         _paralView.Show();
         _prismView.Hide();
         _sphereView.Hide();
-
+        _paralView.UpdatePosition(_pointGenerationMesh.position);
         Debug.Log("PARAL");
     }
 }
