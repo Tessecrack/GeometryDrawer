@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Assets.GoemetryDrawer.Scripts.Utils
 {
@@ -23,6 +22,7 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
         private void Start()
         {
             _mesh = GetComponent<MeshFilter>().mesh;
+
             _position = this.transform.position;
 
             _width = 5f;
@@ -59,16 +59,6 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
             UpdatePrimitive();
         }
 
-        private void Update()
-        {
-            if (_previousWidth == _width && _previousHeight == _height && _previousLength == _length)
-            {
-                return;
-            }
-
-            //UpdatePrimitive();
-        }
-
         private void UpdatePrimitive()
         {
             GenerateVertices();
@@ -76,26 +66,26 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
 
             _mesh.vertices = _vertices;
             _mesh.triangles = _triangles;
-            this.transform.position = _position;
+            //this.transform.position = _position;
         }
 
         private void GenerateVertices()
         {
-            var posX = _position.x;
-            var posY = _position.y;
-            var posZ = _position.z;
+            var posX = 0;//_position.x;
+            var posY = 0;//_position.y;
+            var posZ = 0;//_position.z;
 
             _vertices = new Vector3[8]
             {
-                new Vector3(posX - _width / 2, posY - _height / 2, posZ - _length / 2), // 0
-                new Vector3(posX - _width / 2, posY + _height / 2, posZ - _length / 2), // 1
-                new Vector3(posX + _width / 2, posY - _height / 2, posZ - _length / 2), // 2
-                new Vector3(posX + _width / 2, posY + _height / 2, posZ - _length / 2), // 3
+                new Vector3(posX - _width / 2, posY - _height / 2, posZ - _length / 2),   // 0
+                new Vector3(posX - _width / 2, posY + _height / 2, posZ - _length / 2),   // 1
+                new Vector3(posX + _width / 2, posY - _height / 2, posZ - _length / 2),   // 2
+                new Vector3(posX + _width / 2, posY + _height / 2, posZ - _length / 2),   // 3
 
-                new Vector3(posX + _width / 2, posY - _height / 2, posZ + _length / 2),   // 4
-                new Vector3(posX - _width / 2, posY + _height / 2, posZ + _length / 2),// 5
+                new Vector3(posX - _width / 2, posY - _height / 2, posZ + _length / 2),   // 4
+                new Vector3(posX - _width / 2, posY + _height / 2, posZ + _length / 2),   // 5
 
-                new Vector3(posX + _width / 2, posY + _height / 2, posZ + _length / 2), // 6
+                new Vector3(posX + _width / 2, posY + _height / 2, posZ + _length / 2),    // 6
                 new Vector3(posX + _width / 2, posY - _height / 2, posZ + _length / 2)     // 7
             };
         }

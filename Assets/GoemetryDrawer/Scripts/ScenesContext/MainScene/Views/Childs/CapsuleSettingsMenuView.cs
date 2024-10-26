@@ -46,5 +46,20 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
         {
             //_instance.transform.position = position;
         }
+
+        public override void RotateX(float xValue)
+        {
+            
+        }
+
+        public override void RotateY(float yValue)
+        {
+            
+        }
+
+        public override void RotateZ(float zValue)
+        {
+            
+        }
     }
 }

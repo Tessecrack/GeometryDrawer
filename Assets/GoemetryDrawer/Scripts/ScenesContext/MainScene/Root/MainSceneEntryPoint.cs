@@ -3,6 +3,7 @@ using Assets.GoemetryDrawer.Scripts.Root;
 using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Binder;
 using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels;
 using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Childs;
+using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views;
 using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs;
 using UnityEngine;
 
@@ -16,6 +17,9 @@ public class MainSceneEntryPoint : MonoBehaviour
     private PrismSettingsMenuView _prismView;
     private SphereSettingsMenuView _sphereView;
     private ServicesMenuView _servicesView;
+    private MotionMenuView _motionMenuView;
+
+    private BaseView _cachedView;
 
     public void Run(DIContainer container)
     {
@@ -30,6 +34,7 @@ public class MainSceneEntryPoint : MonoBehaviour
         var mainSceneViewModel = new MainSceneViewModel();
         var sphereViewModel = new SphereSettingsMenuViewModel();
         var parallelepipedViewModel = new ParallelepipedSettingsMenuViewModel();
+        var motionViewModel = new MotionMenuViewModel();
 
         mainSceneViewModel.OnSphereButtonClick   += HandlerSphereButtonClick;
         mainSceneViewModel.OnCapsuleButtonClick  += HandlerCapsuleButtonClick;
@@ -39,14 +44,21 @@ public class MainSceneEntryPoint : MonoBehaviour
         uiScene.View.Bind(mainSceneViewModel);
         uiScene.SphereSettingsView.Bind(sphereViewModel, _pointGenerationMesh);
         uiScene.ParallelepipedSettingsView.Bind(parallelepipedViewModel, _pointGenerationMesh);
+        uiScene.MotionMenuView.Bind(motionViewModel);
 
         _capsuleView = uiScene.CapsuleSettingsView;
         _paralView = uiScene.ParallelepipedSettingsView;
         _prismView = uiScene.PrismSettingsView;
         _sphereView = uiScene.SphereSettingsView;
         _servicesView = uiScene.ServicesMenuView;
+        _motionMenuView = uiScene.MotionMenuView;
 
-        HandlerSphereButtonClick();
+        motionViewModel.OnChangedRotateX += HandlerRotationX;
+        motionViewModel.OnChangedRotateY += HandlerRotationY;
+        motionViewModel.OnChangedRotateZ += HandlerRotationZ;
+
+        //HandlerSphereButtonClick();
+        HandlerParallelepipedClick();
     }
 
     public void HandlerSphereButtonClick()
@@ -55,19 +67,18 @@ public class MainSceneEntryPoint : MonoBehaviour
         _paralView.Hide();
         _prismView.Hide();
         _sphereView.Show();
+        _cachedView = _sphereView;
         _sphereView.Update();
         _sphereView.UpdatePosition(_pointGenerationMesh.position);
-        Debug.Log("SPHERE");
     }
 
     private void HandlerCapsuleButtonClick()
     {
         _capsuleView.Show();
+        _cachedView = _capsuleView;
         _paralView.Hide();
         _prismView.Hide();
         _sphereView.Hide();
-
-        Debug.Log("CAPSULE");
     }
 
     private void HandlerPrismButtonClick()
@@ -75,9 +86,8 @@ public class MainSceneEntryPoint : MonoBehaviour
         _capsuleView.Hide();
         _paralView.Hide();
         _prismView.Show();
+        _cachedView = _prismView;
         _sphereView.Hide();
-
-        Debug.Log("PRISM");
     }
 
     private void HandlerParallelepipedClick()
@@ -86,7 +96,22 @@ public class MainSceneEntryPoint : MonoBehaviour
         _paralView.Show();
         _prismView.Hide();
         _sphereView.Hide();
+        _cachedView = _paralView;
         _paralView.UpdatePosition(_pointGenerationMesh.position);
-        Debug.Log("PARAL");
+    }
+
+    private void HandlerRotationX(float xValue)
+    {
+        _cachedView.RotateX(xValue);
+    }
+
+    private void HandlerRotationY(float yValue)
+    {
+        _cachedView.RotateZ(yValue);
+    }
+
+    private void HandlerRotationZ(float zValue)
+    {
+        _cachedView.RotateZ(zValue);
     }
 }

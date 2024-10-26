@@ -54,5 +54,23 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
         {
             _instance.transform.position = position;
         }
+
+        public override void RotateX(float xValue)
+        {
+            var temp = _instance.transform.eulerAngles;
+            _instance.transform.eulerAngles = new Vector3(xValue, temp.y, temp.z);
+        }
+
+        public override void RotateY(float yValue)
+        {
+            var temp = _instance.transform.eulerAngles;
+            _instance.transform.eulerAngles = new Vector3(temp.x, yValue, temp.z);
+        }
+
+        public override void RotateZ(float zValue)
+        {
+            var temp = _instance.transform.eulerAngles;
+            _instance.transform.eulerAngles = new Vector3(temp.x, temp.y, zValue);
+        }
     }
 }

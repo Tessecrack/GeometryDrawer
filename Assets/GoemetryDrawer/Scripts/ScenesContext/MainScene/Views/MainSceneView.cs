@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views
 {
-    public class MainSceneView : BaseView
+    public class MainSceneView : MonoBehaviour
     {
         private MainSceneViewModel _viewModel;
 
@@ -30,21 +30,6 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views
         public void HandlerParallelepipedButtonClick()
         {
             _viewModel.HandlerParallelepipedClick();
-        }
-
-        public override void Enable()
-        {
-            // TODO
-        }
-
-        public override void Disable()
-        {
-            // TODO
-        }
-
-        public override void UpdatePosition(Vector3 position)
-        {
-            // ITS WRONG
         }
     }
 }
