@@ -52,6 +52,10 @@ namespace Assets.GoemetryDrawer.Scripts.InputControl
                 _cameraVerticalRotation = 0;
                 _cameraHorizontalRotation = 0;
             }
+            if (Input.GetMouseButton(0))
+            {
+
+            }
             var rotationDirection = Vector3.right * _cameraVerticalRotation + Vector3.up * _cameraHorizontalRotation;
             _controllable.Move(moveDirection);
             _controllable.Rotate(rotationDirection);
