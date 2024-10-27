@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.GoemetryDrawer.Scripts.InputControl
 {
@@ -8,6 +9,12 @@ namespace Assets.GoemetryDrawer.Scripts.InputControl
         private float _cameraVerticalRotation = 0f;
         private float _cameraHorizontalRotation = 0f;
         private float _rotationSensitive = 10.0f;
+
+        public event Action OnClickSelect;
+        public event Action OnUnclickSelect;
+
+        public event Action OnLockCursor;
+        public event Action OnUnlockCursor;
 
         private void Awake()
         {
@@ -21,7 +28,7 @@ namespace Assets.GoemetryDrawer.Scripts.InputControl
 
         private void Update()
         {
-            ReadMotion();
+            ReadMotion();            
         }
 
         private void ReadMotion()
@@ -42,10 +49,12 @@ namespace Assets.GoemetryDrawer.Scripts.InputControl
                 _cameraVerticalRotation = Mathf.Clamp(_cameraVerticalRotation, -90f, 90f);
                 _cameraHorizontalRotation += rotateInputX;
                 LockCursor();
+                OnLockCursor?.Invoke();
             }
             else
             {
                 UnlockCursor();
+                OnUnlockCursor?.Invoke();
             }
             if (Input.GetKeyDown(KeyCode.R))
             {
@@ -54,7 +63,11 @@ namespace Assets.GoemetryDrawer.Scripts.InputControl
             }
             if (Input.GetMouseButton(0))
             {
-
+                OnClickSelect?.Invoke();
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                OnUnclickSelect?.Invoke();
             }
             var rotationDirection = Vector3.right * _cameraVerticalRotation + Vector3.up * _cameraHorizontalRotation;
             _controllable.Move(moveDirection);

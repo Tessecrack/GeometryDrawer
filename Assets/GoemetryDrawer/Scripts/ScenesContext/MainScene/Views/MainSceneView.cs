@@ -1,4 +1,5 @@
-﻿using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels;
+﻿using Assets.GoemetryDrawer.Scripts.DI;
+using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels;
 using UnityEngine;
 
 namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views
@@ -7,9 +8,9 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views
     {
         private MainSceneViewModel _viewModel;
 
-        public void Bind(MainSceneViewModel viewModel)
+        public void Bind(DIContainer diContainer)
         {
-            _viewModel = viewModel;
+            _viewModel = diContainer.Resolve<MainSceneViewModel>();
         }
 
         public void HandlerCapsuleButtonClick()

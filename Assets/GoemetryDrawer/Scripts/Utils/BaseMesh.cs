@@ -11,13 +11,13 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
 
         [SerializeField] protected Material _selectedMaterial;
 
-        [HideInInspector] public Guid Id { get; private set; }
+        [HideInInspector] public string Id { get; private set; }
 
         private MeshRenderer _meshRenderer;
 
         private void Start()
         {
-            Id = Guid.NewGuid();
+            Id = Guid.NewGuid().ToString();
             _meshRenderer = GetComponent<MeshRenderer>();
             Initialize();
         }

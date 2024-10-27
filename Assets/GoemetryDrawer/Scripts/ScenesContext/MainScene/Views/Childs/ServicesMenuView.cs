@@ -1,4 +1,5 @@
-﻿using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Childs;
+﻿using Assets.GoemetryDrawer.Scripts.DI;
+using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Childs;
 using UnityEngine;
 
 namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
@@ -7,14 +8,9 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
     {
         private ServicesMenuViewModel _viewModel;
 
-        public void Binder(ServicesMenuViewModel viewModel)
+        public void Bind(DIContainer diContainer)
         {
-            _viewModel = viewModel;
-        }
-
-        public void HandlerCreateButtonClick()
-        {
-            _viewModel.HandlerCreatedButton();
+            _viewModel = diContainer.Resolve<ServicesMenuViewModel>();
         }
 
         public void HandlerRemoveButtonClick()

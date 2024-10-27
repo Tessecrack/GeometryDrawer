@@ -5,9 +5,7 @@ namespace Assets.GoemetryDrawer.Scripts.InputControl
 {
     public class InputController : MonoBehaviour, IControllable
     {
-        [SerializeField] private float _speedMotion = 10.0f;
-
-        public event Action OnSelectedEvent;
+        [SerializeField] private float _speedMotion = 15.0f;
 
         private CharacterController _controller;
 

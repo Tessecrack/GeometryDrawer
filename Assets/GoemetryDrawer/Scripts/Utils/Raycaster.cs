@@ -13,6 +13,9 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
         public event Action<BaseMesh> OnNavigation;
         public event Action<BaseMesh> OnSelected;
 
+        private bool _isCursorLocked = false;
+        private bool _needSelect = false;
+
         private void Start()
         {
 
@@ -20,7 +23,7 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
 
         public void Bind(DIContainer container)
         {
-            // maybe set dependency?
+            // maybe dependency?
         }
 
         private void Update()
@@ -30,8 +33,12 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
 
         public void RayCast()
         {
-            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-            var isButtonClick = Input.GetMouseButtonDown(0);
+            if (_isCursorLocked)
+            {
+                return;
+            }
+            Ray ray = _camera.ScreenPointToRay(Input.mousePosition); // damn input
+            var isButtonClick = _needSelect;
             if (Physics.Raycast(ray, out var hit, 100))
             {
                 var bm = hit.collider.gameObject.GetComponent<BaseMesh>();
@@ -40,13 +47,15 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
                     if (isButtonClick)
                     {
                         OnSelected?.Invoke(bm);
+                        return;
                     }
                     else
                     {
                         OnNavigation?.Invoke(bm);
+                        return;
                     }
                 }
-                return;
+                OnNothingNavigation?.Invoke();
             }
             if (isButtonClick)
             {
@@ -54,6 +63,26 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
                 return;
             }
             OnNothingNavigation?.Invoke();
+        }
+
+        public void HandlerInputSelect()
+        {
+            _needSelect = true;
+        }
+
+        public void HandlerInputUnselect()
+        {
+            _needSelect = false;
+        }
+
+        public void HandlerLockCursor()
+        {
+            _isCursorLocked = true;
+        }
+
+        public void HandlerUnlockCursor()
+        {
+            _isCursorLocked = false;
         }
     }
 }

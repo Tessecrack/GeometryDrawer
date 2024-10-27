@@ -1,4 +1,5 @@
-﻿using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Childs;
+﻿using Assets.GoemetryDrawer.Scripts.DI;
+using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Childs;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,9 +13,9 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
 
         private MotionMenuViewModel _viewModel;
 
-        public void Bind(MotionMenuViewModel viewModel)
+        public void Bind(DIContainer diContainer)
         {
-            _viewModel = viewModel;
+            _viewModel = diContainer.Resolve<MotionMenuViewModel>();
         }
 
         public void HandlerChangeRotationX()

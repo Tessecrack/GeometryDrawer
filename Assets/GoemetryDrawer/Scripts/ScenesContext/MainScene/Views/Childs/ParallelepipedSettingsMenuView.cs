@@ -1,4 +1,5 @@
-﻿using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Childs;
+﻿using Assets.GoemetryDrawer.Scripts.DI;
+using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Childs;
 using Assets.GoemetryDrawer.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,9 +19,9 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
         [SerializeField] private ParallelepipedMesh _prefab;
         private ParallelepipedMesh _instance;
 
-        public void Bind(ParallelepipedSettingsMenuViewModel viewModel, Transform point)
+        public void Bind(DIContainer diContainer, Transform point)
         {
-            _viewModel = viewModel;
+            _viewModel = diContainer.Resolve<ParallelepipedSettingsMenuViewModel>();
             _instance = Instantiate(_prefab, point);
         }
 

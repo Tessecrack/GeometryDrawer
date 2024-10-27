@@ -28,30 +28,29 @@ public class MainSceneEntryPoint : MonoBehaviour
 
     public void Run(DIContainer container)
     {
-        var fpController = _cameraView.GetComponent<FPController>();
-
         var uiRoot = container.Resolve<UIRoot>();
 
         var uiScene = Instantiate(_binderPrefab);
 
         uiRoot.AttachSceneUI(uiScene.gameObject);
 
-        container.RegisterInstance("point", _pointGenerationMesh);
-
         var mainSceneViewModel = new MainSceneViewModel();
         var sphereViewModel = new SphereSettingsMenuViewModel();
         var parallelepipedViewModel = new ParallelepipedSettingsMenuViewModel();
         var motionViewModel = new MotionMenuViewModel();
+        var servicesViewModel = new ServicesMenuViewModel(container);
+
+        container.RegisterInstance(mainSceneViewModel).AsSingle();
+        container.RegisterInstance(sphereViewModel).AsSingle();
+        container.RegisterInstance(parallelepipedViewModel).AsSingle();
+        container.RegisterInstance(motionViewModel).AsSingle();
+        container.RegisterInstance(servicesViewModel).AsSingle();
+
 
         mainSceneViewModel.OnSphereButtonClick   += HandlerSphereButtonClick;
         mainSceneViewModel.OnCapsuleButtonClick  += HandlerCapsuleButtonClick;
         mainSceneViewModel.OnPrismButtonClick    += HandlerPrismButtonClick;
         mainSceneViewModel.OnParallelepipedClick += HandlerParallelepipedClick;
-
-        uiScene.View.Bind(mainSceneViewModel);
-        uiScene.SphereSettingsView.Bind(sphereViewModel, _pointGenerationMesh);
-        uiScene.ParallelepipedSettingsView.Bind(parallelepipedViewModel, _pointGenerationMesh);
-        uiScene.MotionMenuView.Bind(motionViewModel);
 
         _capsuleView = uiScene.CapsuleSettingsView;
         _paralView = uiScene.ParallelepipedSettingsView;
@@ -60,36 +59,65 @@ public class MainSceneEntryPoint : MonoBehaviour
         _servicesView = uiScene.ServicesMenuView;
         _motionMenuView = uiScene.MotionMenuView;
 
+        uiScene.View.Bind(container);
+
+        _sphereView.Bind(container, _pointGenerationMesh);
+        _paralView.Bind(container, _pointGenerationMesh);
+        _motionMenuView.Bind(container);
+        _servicesView.Bind(container);
+
         motionViewModel.OnChangedRotateX += HandlerRotationX;
         motionViewModel.OnChangedRotateY += HandlerRotationY;
         motionViewModel.OnChangedRotateZ += HandlerRotationZ;
-
-        HandlerParallelepipedClick();
 
         var raycaster = _cameraView.GetComponent<Raycaster>();
         raycaster.OnNavigation += HandlerRaycasterNavigation;
         raycaster.OnSelected += HandlerRaycasterSelected;
         raycaster.OnNothingNavigation += HandlerRaycasterNothingNavigation;
         raycaster.OnNothingSelected += HandlerRaycasterNothingSelection;
+
+
+        var fpController = _cameraView.GetComponent<FPController>();
+        fpController.OnClickSelect += raycaster.HandlerInputSelect;
+        fpController.OnUnclickSelect += raycaster.HandlerInputUnselect;
+        fpController.OnLockCursor += raycaster.HandlerLockCursor;
+        fpController.OnUnlockCursor += raycaster.HandlerUnlockCursor;
+
+        HandlerParallelepipedClick();
     }
 
-    private void HandlerRaycasterNothingSelection()
+    public void HandlerRaycasterNothingSelection()
     {
+        if (_selectorMesh.SelectedMesh == null)
+        {
+            return;
+        }
         _selectorMesh.SelectedMesh.HighlightUsual();
+        _selectorMesh.SelectedMesh = null;
     }
 
-    private void HandlerRaycasterNothingNavigation()
+    public void HandlerRaycasterNothingNavigation()
     {
+        if (_selectorMesh.NavigatedMesh == null || _selectorMesh.NavigatedMesh == _selectorMesh.SelectedMesh)
+        {
+            return;
+        }
+
         _selectorMesh.NavigatedMesh.HighlightUsual();
+        _selectorMesh.NavigatedMesh = null;
     }
 
-    private void HandlerRaycasterNavigation(BaseMesh bm)
+    public void HandlerRaycasterNavigation(BaseMesh bm)
     {
         _selectorMesh.NavigatedMesh = bm;
+        if (_selectorMesh.NavigatedMesh == _selectorMesh.SelectedMesh)
+        {
+            return;
+        }
         _selectorMesh.NavigatedMesh.HighlightNavigation();
     }
 
-    private void HandlerRaycasterSelected(BaseMesh bm)
+    public void HandlerRaycasterSelected(BaseMesh bm)
     {
         _selectorMesh.SelectedMesh = bm;
         _selectorMesh.SelectedMesh.HighlightSelected();

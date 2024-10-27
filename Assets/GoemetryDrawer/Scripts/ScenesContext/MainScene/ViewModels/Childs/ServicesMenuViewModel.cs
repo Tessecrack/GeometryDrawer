@@ -9,13 +9,8 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Child
         public event Action OnRemoved;
 
         public ServicesMenuViewModel(DIContainer container) 
-        { 
-        }
-
-
-        public void HandlerCreatedButton()
-        { 
-            OnCreated?.Invoke();
+        {
+            
         }
 
         public void HandlerRemovedButton()

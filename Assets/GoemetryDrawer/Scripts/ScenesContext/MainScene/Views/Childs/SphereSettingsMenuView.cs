@@ -1,4 +1,5 @@
-﻿using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Childs;
+﻿using Assets.GoemetryDrawer.Scripts.DI;
+using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Childs;
 using Assets.GoemetryDrawer.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,9 +14,9 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
         private SphereSettingsMenuViewModel _viewModel;
         [SerializeField] protected SphereMesh _prefab;
         private SphereMesh _instance;
-        public void Bind(SphereSettingsMenuViewModel viewModel, Transform point)
+        public void Bind(DIContainer diContainer, Transform point)
         {
-            _viewModel = viewModel;
+            _viewModel = diContainer.Resolve<SphereSettingsMenuViewModel>();
             _instance = Instantiate(_prefab, point);
         }
 
