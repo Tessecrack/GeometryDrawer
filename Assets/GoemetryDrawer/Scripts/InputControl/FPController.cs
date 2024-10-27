@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Assets.GoemetryDrawer.Scripts.InputControl
 {
@@ -16,19 +17,37 @@ namespace Assets.GoemetryDrawer.Scripts.InputControl
         public event Action OnLockCursor;
         public event Action OnUnlockCursor;
 
+
+        public event Action<Vector3> OnRotationMesh;
+        public event Action<Vector3> OnMotionMesh;
+
+        public event Action OnResetRotationMesh;
+
+        private Vector3 _rotationMesh = new Vector3();
+        private Vector3 _motionMesh = new Vector3();
+
+        private float _speedMesh = 10.0f;
+        private bool _isLockMotionGhost = false;
+
         private void Awake()
         {
             _controllable = GetComponent<IControllable>();
 
             if (_controllable == null)
             {
-                throw new System.Exception("NOT FOUND CONTOLLABE");
+                throw new System.Exception("NOT FOUND CONTROLLABE");
             }
         }
 
         private void Update()
         {
-            ReadMotion();            
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                _isLockMotionGhost = true;
+                RotationMesh();
+                MotionMesh();
+            }
+            ReadMotion();
         }
 
         private void ReadMotion()
@@ -70,8 +89,13 @@ namespace Assets.GoemetryDrawer.Scripts.InputControl
                 OnUnclickSelect?.Invoke();
             }
             var rotationDirection = Vector3.right * _cameraVerticalRotation + Vector3.up * _cameraHorizontalRotation;
+            if (_isLockMotionGhost)
+            {
+                moveDirection = Vector3.zero;
+            }
             _controllable.Move(moveDirection);
             _controllable.Rotate(rotationDirection);
+            _isLockMotionGhost = false;
         }
 
         private void UnlockCursor()
@@ -83,6 +107,68 @@ namespace Assets.GoemetryDrawer.Scripts.InputControl
 
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+        }
+
+        private void RotationMesh()
+        {
+            if (Input.GetKey(KeyCode.Z)) // z
+            {
+                _rotationMesh.z = 1.0f;
+            }
+            if (Input.GetKey(KeyCode.X))
+            {
+                _rotationMesh.x = 1.0f;
+            }
+            if (Input.GetKey(KeyCode.C))
+            {
+                _rotationMesh.y = 1.0f;
+            }
+            if (Input.GetKey(KeyCode.V))
+            {
+                OnResetRotationMesh?.Invoke();
+            }
+            OnRotationMesh?.Invoke(_rotationMesh);
+            _rotationMesh = Vector3.zero;
+        }
+
+        private void MotionMesh()
+        {
+            if (Input.GetKey(KeyCode.W))
+            {
+                _motionMesh.z = 1.0f;
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                _motionMesh.x = -1.0f;
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                _motionMesh.z = -1.0f;
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                _motionMesh.x = 1.0f;
+            }
+            if (Input.GetKey(KeyCode.Q))
+            {
+                _motionMesh.y = 1.0f;
+            }
+            if (Input.GetKey(KeyCode.E))
+            {
+                _motionMesh.y = -1.0f;
+            }
+            var velocity = (this.transform.forward * _motionMesh.z + this.transform.right * _motionMesh.x).normalized;
+            if (_motionMesh.y != 0)
+            {
+                velocity.y = _motionMesh.y;
+            }
+            else
+            {
+                velocity.y = 0.0f;
+            }
+            
+            OnMotionMesh?.Invoke(_speedMesh * Time.deltaTime * velocity);
+            _motionMesh = Vector3.zero;
         }
 
         private void LockCursor()

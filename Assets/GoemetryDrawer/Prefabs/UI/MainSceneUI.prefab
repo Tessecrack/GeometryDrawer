@@ -486,7 +486,7 @@ GameObject:
   - component: {fileID: 7914425948059992769}
   - component: {fileID: 2687144537129552816}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: SliderAmountSides
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -826,7 +826,7 @@ GameObject:
   - component: {fileID: 5173351761294686849}
   - component: {fileID: 4309021110522586795}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: SliderHeightC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2506,7 +2506,7 @@ GameObject:
   - component: {fileID: 3903871150797251197}
   - component: {fileID: 6494717418931393282}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: SliderRadiusC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4523,7 +4523,7 @@ GameObject:
   - component: {fileID: 2182304079135690841}
   - component: {fileID: 3876964934782621603}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: SliderRadiusP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6709,8 +6709,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7780d6bc2c11c740b48cd7d4a89967e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sliderHeight: {fileID: 0}
-  _sliderRadius: {fileID: 0}
+  _sliderHeight: {fileID: 6329347449243907150}
+  _sliderRadius: {fileID: 3876964934782621603}
 --- !u!1 &7632432855561027064
 GameObject:
   m_ObjectHideFlags: 0
@@ -6990,7 +6990,7 @@ GameObject:
   - component: {fileID: 8697856980939512624}
   - component: {fileID: 6329347449243907150}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: SliderHeightP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7927,7 +7927,7 @@ GameObject:
   - component: {fileID: 6753641844647006070}
   - component: {fileID: 449332345474994356}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: SliderAmountSides
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8315,9 +8315,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4458fb3e2fd644d499b6a337e4a4e2f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sliderSidesAmount: {fileID: 0}
-  _sliderRadius: {fileID: 0}
-  _sliderHeight: {fileID: 0}
+  _sliderSidesAmount: {fileID: 449332345474994356}
+  _sliderRadius: {fileID: 6494717418931393282}
+  _sliderHeight: {fileID: 4309021110522586795}
 --- !u!1 &9136990283410621948
 GameObject:
   m_ObjectHideFlags: 0

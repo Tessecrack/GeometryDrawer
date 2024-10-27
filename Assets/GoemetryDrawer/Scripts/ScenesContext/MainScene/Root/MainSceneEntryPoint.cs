@@ -99,6 +99,24 @@ public class MainSceneEntryPoint : MonoBehaviour
         fpController.OnUnclickSelect  += raycaster.HandlerInputUnselect;
         fpController.OnLockCursor     += raycaster.HandlerLockCursor;
         fpController.OnUnlockCursor   += raycaster.HandlerUnlockCursor;
+        fpController.OnRotationMesh      += HandlerRotationMesh;
+        fpController.OnResetRotationMesh += HandlerResetRotationMesh;
+        fpController.OnMotionMesh += HandlerMotionMesh;
+    }
+
+    private void HandlerMotionMesh(Vector3 direction)
+    {
+        _selectorMesh.SelectedMesh?.MotionMesh(direction);
+    }
+
+    private void HandlerResetRotationMesh()
+    {
+        _selectorMesh.SelectedMesh?.ResetRotation();
+    }
+
+    private void HandlerRotationMesh(Vector3 direction)
+    {
+        _selectorMesh.SelectedMesh?.RotateMesh(direction);
     }
 
     private void HandlerRaycasterNothingSelection()

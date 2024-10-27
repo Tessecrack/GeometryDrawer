@@ -50,5 +50,22 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
             IsHighlightStandart = false;
             IsHighlightSelected = true;
         }
+
+        public virtual void RotateMesh(Vector3 direction)
+        {
+            this.transform.Rotate(Vector3.forward, direction.z);
+            this.transform.Rotate(Vector3.right, direction.x);
+            this.transform.Rotate(Vector3.up, direction.y);
+        }
+
+        public virtual void ResetRotation()
+        {
+            this.transform.rotation = Quaternion.identity;
+        }
+
+        public virtual void MotionMesh(Vector3 direction)
+        {
+            this.transform.position += direction;
+        }
     }
 }
