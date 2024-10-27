@@ -6,7 +6,7 @@ using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels;
 using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Childs;
 using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views;
 using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs;
-using Assets.GoemetryDrawer.Scripts.Services.Figures;
+using Assets.GoemetryDrawer.Scripts.Utils;
 using UnityEngine;
 
 public class MainSceneEntryPoint : MonoBehaviour
@@ -23,6 +23,8 @@ public class MainSceneEntryPoint : MonoBehaviour
     private MotionMenuView _motionMenuView;
 
     private BaseView _cachedView;
+
+    private SelectorMesh _selectorMesh = new SelectorMesh();
 
     public void Run(DIContainer container)
     {
@@ -63,6 +65,32 @@ public class MainSceneEntryPoint : MonoBehaviour
         motionViewModel.OnChangedRotateZ += HandlerRotationZ;
 
         HandlerParallelepipedClick();
+
+        var raycaster = _cameraView.GetComponent<Raycaster>();
+        raycaster.OnNavigation += HandlerRaycasterNavigation;
+        raycaster.OnSelected += HandlerRaycasterSelected;
+        raycaster.OnNothingNavigation += HandlerRaycasterNothingNavigation;
+        raycaster.OnNothingSelected += HandlerRaycasterNothingSelection;
+    }
+
+    private void HandlerRaycasterNothingSelection()
+    {
+        
+    }
+
+    private void HandlerRaycasterNothingNavigation()
+    {
+        
+    }
+
+    private void HandlerRaycasterNavigation(BaseMesh bm)
+    {
+        bm.HighlightNavigation();
+    }
+
+    private void HandlerRaycasterSelected(BaseMesh bm)
+    {
+        bm.HighlightSelected();
     }
 
     public void HandlerSphereButtonClick()

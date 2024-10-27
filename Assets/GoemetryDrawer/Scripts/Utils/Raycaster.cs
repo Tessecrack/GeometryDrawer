@@ -1,4 +1,5 @@
 ﻿using Assets.GoemetryDrawer.Scripts.DI;
+using System;
 using UnityEngine;
 
 namespace Assets.GoemetryDrawer.Scripts.Utils
@@ -7,7 +8,10 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
     {
         [SerializeField] private Camera _camera;
 
-
+        public event Action OnNothingNavigation;
+        public event Action OnNothingSelected;
+        public event Action<BaseMesh> OnNavigation;
+        public event Action<BaseMesh> OnSelected;
 
         private void Start()
         {
@@ -16,28 +20,40 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
 
         public void Bind(DIContainer container)
         {
-
+            // maybe set dependency?
         }
 
         private void Update()
         {
-            if (Input.GetMouseButton(0))
-            {
-                RayCast();
-            }
+            RayCast();
         }
 
         public void RayCast()
         {
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out var hit))
+            var isButtonClick = Input.GetMouseButtonDown(0);
+            if (Physics.Raycast(ray, out var hit, 100))
             {
-                var gm = hit.collider.gameObject.GetComponent<SphereMesh>();
-                if (gm != null)
+                var bm = hit.collider.gameObject.GetComponent<BaseMesh>();
+                if (bm != null)
                 {
-                    Debug.Log(gm.ToString());
+                    if (isButtonClick)
+                    {
+                        OnSelected?.Invoke(bm);
+                    }
+                    else
+                    {
+                        OnNavigation?.Invoke(bm);
+                    }
                 }
+                return;
             }
+            if (isButtonClick)
+            {
+                OnNothingSelected?.Invoke();
+                return;
+            }
+            OnNothingNavigation?.Invoke();
         }
     }
 }

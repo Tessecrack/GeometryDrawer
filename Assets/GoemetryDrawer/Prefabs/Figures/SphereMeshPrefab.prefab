@@ -97,6 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c076adad8859c0f4f862278c2bdd7ac0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _standartMaterial: {fileID: 2100000, guid: e84fbcfecf1e7ea4ba0b5a01a48d0bab, type: 2}
+  _navigateMaterial: {fileID: 2100000, guid: b6aff4dcae45c364d8530a757f4d8796, type: 2}
+  _selectedMaterial: {fileID: 2100000, guid: da7f0a8f949dafb448ff76c17405a1a2, type: 2}
   _size: 5
   _resolution: 20
   _origin: {x: 0, y: 0, z: 0}
