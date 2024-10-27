@@ -75,22 +75,24 @@ public class MainSceneEntryPoint : MonoBehaviour
 
     private void HandlerRaycasterNothingSelection()
     {
-        
+        _selectorMesh.SelectedMesh.HighlightUsual();
     }
 
     private void HandlerRaycasterNothingNavigation()
     {
-        
+        _selectorMesh.NavigatedMesh.HighlightUsual();
     }
 
     private void HandlerRaycasterNavigation(BaseMesh bm)
     {
-        bm.HighlightNavigation();
+        _selectorMesh.NavigatedMesh = bm;
+        _selectorMesh.NavigatedMesh.HighlightNavigation();
     }
 
     private void HandlerRaycasterSelected(BaseMesh bm)
     {
-        bm.HighlightSelected();
+        _selectorMesh.SelectedMesh = bm;
+        _selectorMesh.SelectedMesh.HighlightSelected();
     }
 
     public void HandlerSphereButtonClick()

@@ -24,6 +24,11 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
 
         protected abstract void Initialize();
 
+        public virtual void HighlightUsual()
+        {
+            _meshRenderer.material = _standartMaterial;
+        }
+
         public virtual void HighlightNavigation()
         {
             _meshRenderer.material = _navigateMaterial;
