@@ -40,21 +40,18 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
 
         public void UpdateHeight(float newHeight)
         {
-            Debug.Log(newHeight);
             _height = newHeight;
             UpdatePrimitive();
         }
 
         public void UpdateWidth(float newWidth)
         {
-            Debug.Log(newWidth);
             _width = newWidth;
             UpdatePrimitive();
         }
 
         public void UpdateLength(float newLength)
         {
-            Debug.Log(newLength);
             _length = newLength;
             UpdatePrimitive();
         }

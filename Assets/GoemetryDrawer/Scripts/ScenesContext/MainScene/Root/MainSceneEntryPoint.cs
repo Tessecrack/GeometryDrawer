@@ -1,4 +1,5 @@
 using Assets.GoemetryDrawer.Scripts.DI;
+using Assets.GoemetryDrawer.Scripts.InputControl;
 using Assets.GoemetryDrawer.Scripts.Root;
 using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Binder;
 using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels;
@@ -11,6 +12,7 @@ public class MainSceneEntryPoint : MonoBehaviour
 {
     [SerializeField] private UIMainSceneBinder _binderPrefab;
     [SerializeField] private Transform _pointGenerationMesh;
+    [SerializeField] private CameraView _cameraView;
 
     private CapsuleSettingsMenuView _capsuleView;
     private ParallelepipedSettingsMenuView _paralView;
@@ -23,6 +25,8 @@ public class MainSceneEntryPoint : MonoBehaviour
 
     public void Run(DIContainer container)
     {
+        var fpController = _cameraView.GetComponent<FPController>();
+
         var uiRoot = container.Resolve<UIRoot>();
 
         var uiScene = Instantiate(_binderPrefab);
