@@ -791,6 +791,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1668227357}
   - component: {fileID: 1668227358}
+  - component: {fileID: 1668227359}
   m_Layer: 0
   m_Name: EntryPoint
   m_TagString: Untagged
@@ -828,6 +829,21 @@ MonoBehaviour:
   _binderPrefab: {fileID: 370436793910812264, guid: 9126d15baaa65e64e804e23718b8107c, type: 3}
   _pointGenerationMesh: {fileID: 353335}
   _cameraView: {fileID: 738990790}
+--- !u!114 &1668227359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668227356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4be72f4dc97e584eb4e3c5e6a8a948b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sphereMeshPrefab: {fileID: 8050386032326062520, guid: 4be70b0a960088b438338aaacee3332b, type: 3}
+  _parallelepipedMeshPrefab: {fileID: 161849072734203803, guid: f6556329e6a0b5e46941a8a15fd75f02, type: 3}
+  _container: {fileID: 353335}
 --- !u!1 &1777474096
 GameObject:
   m_ObjectHideFlags: 0

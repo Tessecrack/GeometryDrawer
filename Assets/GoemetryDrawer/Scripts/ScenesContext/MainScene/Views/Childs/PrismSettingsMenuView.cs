@@ -1,4 +1,5 @@
-﻿using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Childs;
+﻿using Assets.GoemetryDrawer.Scripts.DI;
+using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Childs;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,9 +12,9 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
 
         private PrismSettingsMenuViewModel _viewModel;
 
-        public void Bind(PrismSettingsMenuViewModel viewModel)
+        public void Bind(DIContainer container)
         {
-            _viewModel = viewModel;
+            _viewModel = container.Resolve<PrismSettingsMenuViewModel>();
         }
 
         public void HandlerHeightChanged()

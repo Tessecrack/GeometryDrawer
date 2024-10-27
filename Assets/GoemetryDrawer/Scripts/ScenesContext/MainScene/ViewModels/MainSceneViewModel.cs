@@ -9,7 +9,6 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels
         public event Action OnPrismButtonClick;
         public event Action OnParallelepipedClick;
 
-
         public void HandlerCapsuleButtonClick()
         {
             OnCapsuleButtonClick?.Invoke();

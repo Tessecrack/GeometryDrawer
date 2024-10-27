@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views;
+using System;
+using TMPro;
 using UnityEngine;
 
 namespace Assets.GoemetryDrawer.Scripts.Utils
@@ -7,36 +9,46 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
     {
         [SerializeField] protected Material _standartMaterial;
 
-        [SerializeField] protected Material _navigateMaterial;
-
         [SerializeField] protected Material _selectedMaterial;
 
-        [HideInInspector] public string Id { get; private set; }
+        public string Id { get; private set; } = Guid.NewGuid().ToString();
 
         private MeshRenderer _meshRenderer;
 
+        public bool IsHighlightSelected { get; private set; }
+        public bool IsHighlightStandart { get; private set; } = true;
+
+        public BaseView BindedView => _baseView; 
+
+        private BaseView _baseView;
+
+        public void BindView(BaseView baseView)
+        {
+            _baseView = baseView;
+        }
+
         private void Start()
         {
-            Id = Guid.NewGuid().ToString();
             _meshRenderer = GetComponent<MeshRenderer>();
             Initialize();
         }
 
         protected abstract void Initialize();
 
-        public virtual void HighlightUsual()
+        public virtual void HighlightStandart()
         {
             _meshRenderer.material = _standartMaterial;
-        }
 
-        public virtual void HighlightNavigation()
-        {
-            _meshRenderer.material = _navigateMaterial;
+            IsHighlightStandart = true;
+            IsHighlightSelected = false;
         }
 
         public virtual void HighlightSelected()
         {
             _meshRenderer.material = _selectedMaterial;
+
+            IsHighlightStandart = false;
+            IsHighlightSelected = true;
         }
     }
 }

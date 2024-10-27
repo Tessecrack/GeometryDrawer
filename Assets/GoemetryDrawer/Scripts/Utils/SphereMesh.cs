@@ -51,11 +51,6 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
             UpdateData();
         }
 
-        private void Update()
-        {
-            UpdateData();
-        }
-
         private void UpdateData()
         {
             //clamps resolution avoid errors and performance issues

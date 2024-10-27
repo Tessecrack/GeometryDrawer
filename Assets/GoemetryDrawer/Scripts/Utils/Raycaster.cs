@@ -7,18 +7,17 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
     public class Raycaster : MonoBehaviour
     {
         [SerializeField] private Camera _camera;
-
-        public event Action OnNothingNavigation;
         public event Action OnNothingSelected;
-        public event Action<BaseMesh> OnNavigation;
         public event Action<BaseMesh> OnSelected;
 
         private bool _isCursorLocked = false;
         private bool _needSelect = false;
 
-        private void Start()
-        {
+        private int _uiLayer;
 
+        public void Start()
+        {
+            _uiLayer = LayerMask.NameToLayer("UI");
         }
 
         public void Bind(DIContainer container)
@@ -49,20 +48,12 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
                         OnSelected?.Invoke(bm);
                         return;
                     }
-                    else
-                    {
-                        OnNavigation?.Invoke(bm);
-                        return;
-                    }
                 }
-                OnNothingNavigation?.Invoke();
             }
             if (isButtonClick)
             {
                 OnNothingSelected?.Invoke();
-                return;
             }
-            OnNothingNavigation?.Invoke();
         }
 
         public void HandlerInputSelect()

@@ -12,63 +12,71 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
         [SerializeField] private Slider _radiusSlider;
 
         private SphereSettingsMenuViewModel _viewModel;
-        [SerializeField] protected SphereMesh _prefab;
-        private SphereMesh _instance;
-        public void Bind(DIContainer diContainer, Transform point)
+
+        public void Bind(DIContainer diContainer)
         {
             _viewModel = diContainer.Resolve<SphereSettingsMenuViewModel>();
-            _instance = Instantiate(_prefab, point);
+            _meshSelector = diContainer.Resolve<MeshSelector>();
         }
 
         public override void UpdateValues()
         {
-            _morphSlider.value = _instance.Resolution;
-            _radiusSlider.value = _instance.Radius;
+            var selectedMesh = (SphereMesh)_meshSelector.SelectedMesh;
+            _morphSlider.value = selectedMesh.Resolution;
+            _radiusSlider.value = selectedMesh.Radius;
         }
 
         public void HandlerMorphChanged()
         {
             _viewModel.HandlerChangedMorph(_morphSlider.value);
-            _instance.UpdateResolution((int)_morphSlider.value);
+            var selectedMesh = (SphereMesh)_meshSelector.SelectedMesh;
+            selectedMesh.UpdateResolution((int)_morphSlider.value);
         }
 
         public void HandlerRadiusChanged()
         {
             _viewModel.HandlerChangeRadius(_radiusSlider.value);
-            _instance.UpdateRadius(_radiusSlider.value);
+            var instance = (SphereMesh)_meshSelector.SelectedMesh;
+            instance.UpdateRadius(_radiusSlider.value);
         }
 
         public override void Enable()
         {
-            _instance.gameObject.SetActive(true);
+            var instance = _meshSelector.SelectedMesh;
+            instance.gameObject.SetActive(true);
         }
 
         public override void Disable()
         {
-            _instance.gameObject.SetActive(false);
+            var instance = _meshSelector.SelectedMesh;
+            instance.gameObject.SetActive(false);
         }
 
         public void UpdatePosition(Vector3 position)
         {
-            _instance.transform.position = position;
+            var instance = _meshSelector.SelectedMesh;
+            instance.transform.position = position;
         }
 
         public override void RotateX(float xValue)
         {
-            var temp = _instance.transform.eulerAngles;
-            _instance.transform.eulerAngles = new Vector3(xValue, temp.y, temp.z);
+            var instance = _meshSelector.SelectedMesh;
+            var temp = instance.transform.eulerAngles;
+            instance.transform.eulerAngles = new Vector3(xValue, temp.y, temp.z);
         }
 
         public override void RotateY(float yValue)
         {
-            var temp = _instance.transform.eulerAngles;
-            _instance.transform.eulerAngles = new Vector3(temp.x, yValue, temp.z);
+            var instance = _meshSelector.SelectedMesh;
+            var temp = instance.transform.eulerAngles;
+            instance.transform.eulerAngles = new Vector3(temp.x, yValue, temp.z);
         }
 
         public override void RotateZ(float zValue)
         {
-            var temp = _instance.transform.eulerAngles;
-            _instance.transform.eulerAngles = new Vector3(temp.x, temp.y, zValue);
+            var instance = _meshSelector.SelectedMesh;
+            var temp = instance.transform.eulerAngles;
+            instance.transform.eulerAngles = new Vector3(temp.x, temp.y, zValue);
         }
     }
 }

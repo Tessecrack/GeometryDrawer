@@ -16,71 +16,77 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
 
         private ParallelepipedSettingsMenuViewModel _viewModel;
 
-        [SerializeField] private ParallelepipedMesh _prefab;
-        private ParallelepipedMesh _instance;
-
-        public void Bind(DIContainer diContainer, Transform point)
+        public void Bind(DIContainer diContainer)
         {
             _viewModel = diContainer.Resolve<ParallelepipedSettingsMenuViewModel>();
-            _instance = Instantiate(_prefab, point);
+            _meshSelector = diContainer.Resolve<MeshSelector>();
         }
 
         public override void UpdateValues()
         {
-            _sliderWidth.value = _instance.Width;
-            _sliderHeight.value = _instance.Height;
-            _sliderLength.value = _instance.Length;
+            var selectedMesh = (ParallelepipedMesh)_meshSelector.SelectedMesh;
+            _sliderWidth.value = selectedMesh.Width;
+            _sliderHeight.value = selectedMesh.Height;
+            _sliderLength.value = selectedMesh.Length;
         }
 
         public void HandlerSliderHeight()
         {
             _viewModel.HandlerChangedHeight(_sliderHeight.value);
-            _instance.UpdateHeight(_sliderHeight.value);
+            var selectedMesh = (ParallelepipedMesh)_meshSelector.SelectedMesh;
+            selectedMesh.UpdateHeight(_sliderHeight.value);
         }
 
         public void HandlerSliderWidth()
         {
             _viewModel.HandlerChangedWidth(_sliderWidth.value);
-            _instance.UpdateWidth(_sliderWidth.value);
+            var selectedMesh = (ParallelepipedMesh)_meshSelector.SelectedMesh;
+            selectedMesh.UpdateWidth(_sliderWidth.value);
         }
 
         public void HandlerSliderLength()
         {
             _viewModel.HandlerChangedLength(_sliderLength.value);
-            _instance.UpdateLength(_sliderLength.value);
+            var selectedMesh = (ParallelepipedMesh)_meshSelector.SelectedMesh;
+            selectedMesh.UpdateLength(_sliderLength.value);
         }
 
         public override void Enable()
         {
-            _instance.gameObject.SetActive(true);
+            _meshSelector.SelectedMesh.gameObject.SetActive(true);
         }
 
         public override void Disable()
         {
-            _instance.gameObject.SetActive(false);
+            _meshSelector.SelectedMesh.gameObject.SetActive(false);
         }
 
         public override void RotateX(float xValue)
         {
-            var temp = _instance.transform.eulerAngles;
-            _instance.transform.eulerAngles = new Vector3(xValue, temp.y, temp.z);
+            var selectedMesh = _meshSelector.SelectedMesh;
+            var temp = selectedMesh.transform.eulerAngles;
+            selectedMesh.transform.eulerAngles = new Vector3(xValue, temp.y, temp.z);
         }
 
         public override void RotateY(float yValue)
         {
-            var temp = _instance.transform.eulerAngles;
-            _instance.transform.eulerAngles = new Vector3(temp.x, yValue, temp.z);
+            var selectedMesh = _meshSelector.SelectedMesh;
+            var temp = selectedMesh.transform.eulerAngles;
+            selectedMesh.transform.eulerAngles = new Vector3(temp.x, yValue, temp.z);
         }
 
         public override void RotateZ(float zValue)
         {
-            var temp = _instance.transform.eulerAngles;
-            _instance.transform.eulerAngles = new Vector3(temp.x, temp.y, zValue);
+            var selectedMesh = _meshSelector.SelectedMesh;
+            var temp = selectedMesh.transform.eulerAngles;
+            selectedMesh.transform.eulerAngles = new Vector3(temp.x, temp.y, zValue);
         }
 
         public void UpdatePosition(Vector3 position)
         {
-            _instance.transform.position = position;
+            var selectedMesh = _meshSelector.SelectedMesh;
+            var temp = selectedMesh.transform.eulerAngles;
+            selectedMesh.transform.position = position;
         }
     }
 }

@@ -8,9 +8,14 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Child
         public event Action<float> OnHeightChanged;
         public event Action<float> OnRadiusChanged;
 
-        public PrismSettingsMenuViewModel(DIContainer container)
+        public PrismSettingsMenuViewModel()
         {
             
+        }
+
+        public void Bind(DIContainer container)
+        {
+
         }
 
         public void HandlerHeightChanged(float height)

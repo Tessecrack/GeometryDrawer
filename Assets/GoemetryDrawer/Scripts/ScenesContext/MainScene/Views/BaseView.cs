@@ -1,19 +1,20 @@
-﻿using UnityEngine;
+﻿using Assets.GoemetryDrawer.Scripts.Utils;
+using UnityEngine;
 
 namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views
 {
     public abstract class BaseView : MonoBehaviour
     {
+        protected MeshSelector _meshSelector;
+
         public void Show()
         {
             this.gameObject.SetActive(true);
-            Enable();
         }
 
         public void Hide()
         {
             this.gameObject.SetActive(false);
-            Disable();
         }
 
         public abstract void UpdateValues();

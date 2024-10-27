@@ -13,7 +13,6 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Binder
         [SerializeField] private PrismSettingsMenuView          _prismSettingsSceneView;
         [SerializeField] private SphereSettingsMenuView         _sphereSettingsView;
         [SerializeField] private ServicesMenuView               _servicesMenuView;
-        [SerializeField] private MotionMenuView                 _motionMenuView;
 
         public MainSceneView View => _mainSceneView;
         public CapsuleSettingsMenuView CapsuleSettingsView => _capsuleSettingsSceneView;
@@ -21,6 +20,5 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Binder
         public PrismSettingsMenuView PrismSettingsView => _prismSettingsSceneView;
         public SphereSettingsMenuView SphereSettingsView => _sphereSettingsView;
         public ServicesMenuView ServicesMenuView => _servicesMenuView;
-        public MotionMenuView MotionMenuView => _motionMenuView;
     }
 }

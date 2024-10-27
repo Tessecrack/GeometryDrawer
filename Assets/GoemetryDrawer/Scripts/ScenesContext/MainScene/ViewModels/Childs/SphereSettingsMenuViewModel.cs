@@ -1,7 +1,4 @@
-﻿using Assets.GoemetryDrawer.Scripts.DI;
-using Assets.GoemetryDrawer.Scripts.Utils;
-using System;
-using UnityEngine;
+﻿using System;
 
 namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Childs
 {
@@ -9,6 +6,8 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Child
     {
         public event Action<float> OnChangedRadius;
         public event Action<float> OnChangedMorph;
+
+
 
         public void HandlerChangeRadius(float radius)
         {

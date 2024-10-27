@@ -1,6 +1,6 @@
 ﻿namespace Assets.GoemetryDrawer.Scripts.Utils
 {
-    public class SelectorMesh
+    public class MeshSelector
     {
         public BaseMesh CachedMesh { get; set; }
 
