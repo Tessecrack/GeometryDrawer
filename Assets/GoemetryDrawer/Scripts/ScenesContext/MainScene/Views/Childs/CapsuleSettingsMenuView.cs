@@ -55,5 +55,10 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
         {
             // TODO
         }
+
+        public override void UpdateValues()
+        {
+            // TODO
+        }
     }
 }

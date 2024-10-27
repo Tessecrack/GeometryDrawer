@@ -21,7 +21,14 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
         public void Bind(ParallelepipedSettingsMenuViewModel viewModel, Transform point)
         {
             _viewModel = viewModel;
-            _instance = Instantiate(_prefab, point.position, Quaternion.identity);
+            _instance = Instantiate(_prefab, point);
+        }
+
+        public override void UpdateValues()
+        {
+            _sliderWidth.value = _instance.Width;
+            _sliderHeight.value = _instance.Height;
+            _sliderLength.value = _instance.Length;
         }
 
         public void HandlerSliderHeight()

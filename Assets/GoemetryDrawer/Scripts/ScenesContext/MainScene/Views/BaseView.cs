@@ -8,6 +8,7 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views
         {
             this.gameObject.SetActive(true);
             Enable();
+            //UpdateValues();
         }
 
         public void Hide()
@@ -15,6 +16,8 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views
             this.gameObject.SetActive(false);
             Disable();
         }
+
+        public abstract void UpdateValues();
 
         public abstract void Enable();
 

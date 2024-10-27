@@ -1,6 +1,5 @@
 ﻿using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Childs;
 using Assets.GoemetryDrawer.Scripts.Utils;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +16,13 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
         public void Bind(SphereSettingsMenuViewModel viewModel, Transform point)
         {
             _viewModel = viewModel;
-            _instance = Instantiate(_prefab, point.position, Quaternion.identity);
+            _instance = Instantiate(_prefab, point);
+        }
+
+        public override void UpdateValues()
+        {
+            _morphSlider.value = _instance.Resolution;
+            _radiusSlider.value = _instance.Radius;
         }
 
         public void HandlerMorphChanged()

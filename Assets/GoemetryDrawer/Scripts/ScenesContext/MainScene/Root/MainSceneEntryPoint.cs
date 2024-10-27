@@ -6,6 +6,7 @@ using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels;
 using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Childs;
 using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views;
 using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs;
+using Assets.GoemetryDrawer.Scripts.Services.Figures;
 using UnityEngine;
 
 public class MainSceneEntryPoint : MonoBehaviour
@@ -61,7 +62,6 @@ public class MainSceneEntryPoint : MonoBehaviour
         motionViewModel.OnChangedRotateY += HandlerRotationY;
         motionViewModel.OnChangedRotateZ += HandlerRotationZ;
 
-        //HandlerSphereButtonClick();
         HandlerParallelepipedClick();
     }
 

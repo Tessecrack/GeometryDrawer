@@ -1,8 +1,9 @@
 ﻿using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Childs;
+using UnityEngine;
 
 namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
 {
-    public class ServicesMenuView
+    public class ServicesMenuView : MonoBehaviour
     {
         private ServicesMenuViewModel _viewModel;
 

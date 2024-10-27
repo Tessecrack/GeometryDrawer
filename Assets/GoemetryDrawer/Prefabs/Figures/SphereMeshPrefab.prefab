@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 17412642181886572}
   - component: {fileID: 5515556491417752456}
   - component: {fileID: 8050386032326062520}
+  - component: {fileID: 6680887476986615683}
   m_Layer: 0
   m_Name: SphereMeshPrefab
   m_TagString: Untagged
@@ -96,8 +97,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c076adad8859c0f4f862278c2bdd7ac0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 2
-  resolution: 20
-  origin: {x: 0, y: 0, z: 0}
-  isSphere: 1
-  morphValue: 1
+  _size: 5
+  _resolution: 20
+  _origin: {x: 0, y: 0, z: 0}
+  _isSphere: 1
+--- !u!64 &6680887476986615683
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713954601702485625}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}

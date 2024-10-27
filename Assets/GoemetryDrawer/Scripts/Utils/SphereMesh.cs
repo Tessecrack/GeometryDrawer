@@ -6,49 +6,49 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
 {
     public class SphereMesh : BaseMesh
     {
-        private Mesh planeMesh;
-        private Mesh cubeMesh;
-        private MeshFilter meshFilter;
-        private List<Vector3> vertices = new List<Vector3>();
-        private List<int> triangles = new List<int>();
+        private Mesh _planeMesh;
+        private Mesh _cubeMesh;
+        
+        private MeshFilter _meshFilter;
+        private List<Vector3> _vertices = new List<Vector3>();
+        private List<int> _triangles = new List<int>();
 
-        [SerializeField] private float size;
-        [SerializeField] private int resolution = 20;
-        [SerializeField] private Vector3 origin;
-        [SerializeField] private bool isSphere = true;
-
-        [Range(0, 1)] public float morphValue = 1;
+        [SerializeField] private float _size;
+        [SerializeField] private int _resolution = 20;
+        [SerializeField] private Vector3 _origin;
+        [SerializeField] private bool _isSphere = true;
 
         //helper Variables
-        private float previousSize;
-        private int previousResolution;
-        private Vector3 previousOrigin;
-        private bool previousSphereState;
-        private float previousMorphValue;
+        private float _previousSize;
+        private int _previousResolution;
+        private Vector3 _previousOrigin;
+        private bool _previousSphereState;
+
+        public int Resolution => _resolution;
+        public float Radius => _size;
+
+        private MeshCollider _meshCollider;
 
         protected override void Initialize()
         {
-            planeMesh = new Mesh();
-            cubeMesh = new Mesh();
-            meshFilter = this.GetComponent<MeshFilter>();
-            meshFilter.mesh = new Mesh();
+            _planeMesh = new Mesh();
+            _cubeMesh = new Mesh();
+            _meshFilter = this.GetComponent<MeshFilter>();
+            _meshCollider = this.GetComponent<MeshCollider>();
+            _meshFilter.mesh = new Mesh();
+            _meshCollider.sharedMesh = new Mesh();
+            
         }
 
         public void UpdateRadius(float newRadius)
         {
-            size = newRadius;
-            UpdateData();
-        }
-
-        public void UpdateMorph(float newMorphValue) 
-        {
-            morphValue = newMorphValue;
+            _size = newRadius;
             UpdateData();
         }
 
         public void UpdateResolution(int newResolution)
         {
-            resolution = newResolution;
+            _resolution = newResolution;
             UpdateData();
         }
 
@@ -60,42 +60,41 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
         private void UpdateData()
         {
             //clamps resolution avoid errors and performance issues
-            resolution = Mathf.Clamp(resolution, 1, 30);
+            _resolution = Mathf.Clamp(_resolution, 1, 30);
 
             //only generate when changes occur
             if (ValuesHaveChanged())
             {
-                GenerateCube(size, resolution, origin);
-                if (isSphere)
+                GenerateCube(_size, _resolution, _origin);
+                if (_isSphere)
                 {
-                    cubeMesh.vertices = SpherizeVectors(cubeMesh.vertices);
+                    _cubeMesh.vertices = SpherizeVectors(_cubeMesh.vertices);
                 }
-                AssignMesh(cubeMesh);
-
+                AssignMesh(_cubeMesh);
+                _meshCollider.sharedMesh = _cubeMesh;
                 //help keep track of changes
                 AssignValuesAsPreviousValues();
-
             }
         }
 
         void GenerateCube(float size, int resolution, Vector3 origin)
         {
-            vertices.Clear();
-            triangles.Clear();
+            _vertices.Clear();
+            _triangles.Clear();
 
             Mesh planeMesh = GeneratePlane(size, resolution);
 
             //FrontFace 
             List<Vector3> frontVertices = ShiftVertices(origin, planeMesh.vertices, -Vector3.forward * size / 2);
             List<int> frontTriangles = new List<int>(planeMesh.triangles);
-            vertices.AddRange(frontVertices);
-            triangles.AddRange(frontTriangles);
+            _vertices.AddRange(frontVertices);
+            _triangles.AddRange(frontTriangles);
 
             //BackFace
             List<Vector3> backVertices = ShiftVertices(origin, planeMesh.vertices, Vector3.forward * size / 2);
-            List<int> backTriangles = ShiftTriangleIndexes(ReverseTriangles(planeMesh.triangles), vertices.Count);
-            vertices.AddRange(backVertices);
-            triangles.AddRange(backTriangles);
+            List<int> backTriangles = ShiftTriangleIndexes(ReverseTriangles(planeMesh.triangles), _vertices.Count);
+            _vertices.AddRange(backVertices);
+            _triangles.AddRange(backTriangles);
 
             //Dimension switch
             Mesh rotatedPlane = new Mesh();
@@ -104,15 +103,15 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
 
             //RightFace
             List<Vector3> rightVertices = ShiftVertices(origin, rotatedPlane.vertices, Vector3.right * size / 2);
-            List<int> rightTriangles = ShiftTriangleIndexes(rotatedPlane.triangles, vertices.Count);
-            vertices.AddRange(rightVertices);
-            triangles.AddRange(rightTriangles);
+            List<int> rightTriangles = ShiftTriangleIndexes(rotatedPlane.triangles, _vertices.Count);
+            _vertices.AddRange(rightVertices);
+            _triangles.AddRange(rightTriangles);
 
             //LeftFace
             List<Vector3> leftVertices = ShiftVertices(origin, rotatedPlane.vertices, Vector3.left * size / 2);
-            List<int> leftTriangles = ShiftTriangleIndexes(ReverseTriangles(rotatedPlane.triangles), vertices.Count);
-            vertices.AddRange(leftVertices);
-            triangles.AddRange(leftTriangles);
+            List<int> leftTriangles = ShiftTriangleIndexes(ReverseTriangles(rotatedPlane.triangles), _vertices.Count);
+            _vertices.AddRange(leftVertices);
+            _triangles.AddRange(leftTriangles);
 
             //Dimension switch 2: the enswitchening
             rotatedPlane.vertices = SwitchYAndZ(planeMesh.vertices);
@@ -120,19 +119,19 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
 
             //TopFace
             List<Vector3> topVertices = ShiftVertices(origin, rotatedPlane.vertices, Vector3.up * size / 2);
-            List<int> topTriangles = ShiftTriangleIndexes(rotatedPlane.triangles, vertices.Count);
-            vertices.AddRange(topVertices);
-            triangles.AddRange(topTriangles);
+            List<int> topTriangles = ShiftTriangleIndexes(rotatedPlane.triangles, _vertices.Count);
+            _vertices.AddRange(topVertices);
+            _triangles.AddRange(topTriangles);
 
             //BottomFace
             List<Vector3> bottomVertices = ShiftVertices(origin, rotatedPlane.vertices, Vector3.down * size / 2);
-            List<int> bottomTriangles = ShiftTriangleIndexes(ReverseTriangles(rotatedPlane.triangles), vertices.Count);
-            vertices.AddRange(bottomVertices);
-            triangles.AddRange(bottomTriangles);
+            List<int> bottomTriangles = ShiftTriangleIndexes(ReverseTriangles(rotatedPlane.triangles), _vertices.Count);
+            _vertices.AddRange(bottomVertices);
+            _triangles.AddRange(bottomTriangles);
 
-            cubeMesh.Clear();
-            cubeMesh.vertices = vertices.ToArray();
-            cubeMesh.triangles = triangles.ToArray();
+            _cubeMesh.Clear();
+            _cubeMesh.vertices = _vertices.ToArray();
+            _cubeMesh.triangles = _triangles.ToArray();
         }
 
         Mesh GeneratePlane(float size, int resolution)
@@ -178,18 +177,22 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
                     // generatedTriangles.Add(i+resolution+2);
                 }
             }
-            planeMesh.Clear();
-            planeMesh.vertices = generatedVertices.ToArray();
-            planeMesh.triangles = generatedTriangles.ToArray();
-            return planeMesh;
+            _planeMesh.Clear();
+            _planeMesh.vertices = generatedVertices.ToArray();
+            _planeMesh.triangles = generatedTriangles.ToArray();
+            return _planeMesh;
         }
 
         void AssignMesh(Mesh mesh)
         {
-            Mesh filterMesh = meshFilter.mesh;
+            Mesh filterMesh = _meshFilter.mesh;
+
             filterMesh.Clear();
             filterMesh.vertices = mesh.vertices;
             filterMesh.triangles = mesh.triangles;
+
+            //_meshCollider.sharedMesh.vertices = filterMesh.vertices;
+            //_meshCollider.sharedMesh.triangles = filterMesh.triangles;
         }
 
         List<Vector3> ShiftVertices(Vector3 origin, Vector3[] vertices, Vector3 shiftValue)
@@ -248,17 +251,17 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
         {
             for (int i = 0; i < vectors.Length; i++)
             {
-                Vector3 vector = vectors[i] - origin;
-                Vector3 sphereVector = vector.normalized * (size / 2) * 1.67f;
-                Vector3 lerpdVector = Vector3.Lerp(vector, sphereVector, morphValue);
-                vectors[i] = origin + lerpdVector;
+                Vector3 vector = vectors[i] - _origin;
+                Vector3 sphereVector = vector.normalized * (_size / 2) * 1.67f;
+                Vector3 lerpdVector = Vector3.Lerp(vector, sphereVector, 1);
+                vectors[i] = _origin + lerpdVector;
             }
             return vectors;
         }
 
         bool ValuesHaveChanged()
         {
-            if (previousSize != size || previousResolution != resolution || previousOrigin != origin || previousSphereState != isSphere || morphValue != previousMorphValue)
+            if (_previousSize != _size || _previousResolution != _resolution || _previousOrigin != _origin || _previousSphereState != _isSphere)
             {
                 return true;
             }
@@ -267,14 +270,13 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
 
         void AssignValuesAsPreviousValues()
         {
-            previousSize = size;
-            previousResolution = resolution;
-            previousOrigin = origin;
-            previousSize = size;
-            previousResolution = resolution;
-            previousOrigin = origin;
-            previousSphereState = isSphere;
-            previousMorphValue = morphValue;
+            _previousSize = _size;
+            _previousResolution = _resolution;
+            _previousOrigin = _origin;
+            _previousSize = _size;
+            _previousResolution = _resolution;
+            _previousOrigin = _origin;
+            _previousSphereState = _isSphere;
         }
     }
 }

@@ -15,16 +15,23 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
         private Vector3 _position = Vector3.zero;
 
         private Mesh _mesh;
+        private MeshCollider _meshCollider;
 
         private Vector3[] _vertices;
         private int[] _triangles;
 
+        public float Width => _width;
+        public float Height => _height;
+        public float Length => _length;
+
+
+
         protected override void Initialize()
         {
             _mesh = GetComponent<MeshFilter>().mesh;
-
+            _meshCollider = this.GetComponent<MeshCollider>();
             _position = this.transform.position;
-
+            
             _width = 5f;
             _height = 5f;
             _length = 5f;
@@ -63,6 +70,8 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
 
             _mesh.vertices = _vertices;
             _mesh.triangles = _triangles;
+
+            _meshCollider.sharedMesh = _mesh;
             //this.transform.position = _position;
         }
 
