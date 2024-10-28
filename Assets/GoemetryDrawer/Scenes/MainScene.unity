@@ -798,7 +798,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1668227357
 Transform:
@@ -845,7 +845,7 @@ MonoBehaviour:
   _sphereMeshPrefab: {fileID: 8050386032326062520, guid: 4be70b0a960088b438338aaacee3332b, type: 3}
   _parallelepipedMeshPrefab: {fileID: 161849072734203803, guid: f6556329e6a0b5e46941a8a15fd75f02, type: 3}
   _prismMeshPrefab: {fileID: 0}
-  _capsuleMeshPrefab: {fileID: 0}
+  _capsuleMeshPrefab: {fileID: 4297826882113978947, guid: 0fa8b3eebe09d6e4b867acbdefd36dfd, type: 3}
   _container: {fileID: 353335}
 --- !u!114 &1668227360
 MonoBehaviour:

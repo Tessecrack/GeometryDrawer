@@ -44,6 +44,11 @@ public class MainSceneEntryPoint : MonoBehaviour
 
         uiRoot.AttachSceneUI(uiScene.gameObject);
 
+        _materials = GetComponent<ListMaterials>();
+        _meshesGenerator = GetComponent<MeshesGenerator>();
+        var raycaster = _cameraView.GetComponent<Raycaster>();
+        var fpController = _cameraView.GetComponent<FPController>();
+
         var mainSceneViewModel      = new MainSceneViewModel();
         var sphereViewModel         = new SphereSettingsMenuViewModel();
         var parallelepipedViewModel = new ParallelepipedSettingsMenuViewModel();
@@ -84,16 +89,11 @@ public class MainSceneEntryPoint : MonoBehaviour
         _servicesView.Bind(container);
         _capsuleView.Bind(container);
 
-        _materials = GetComponent<ListMaterials>();
-        _meshesGenerator = GetComponent<MeshesGenerator>();
         container.RegisterInstance(_meshesGenerator).AsSingle();
 
-        var raycaster = _cameraView.GetComponent<Raycaster>();
         raycaster.OnSelected          += HandlerRaycasterSelected;
         raycaster.OnNothingSelected   += HandlerRaycasterNothingSelection;
 
-
-        var fpController = _cameraView.GetComponent<FPController>();
         fpController.OnClickSelect    += raycaster.HandlerInputSelect;
         fpController.OnUnclickSelect  += raycaster.HandlerInputUnselect;
         fpController.OnLockCursor     += raycaster.HandlerLockCursor;
@@ -174,7 +174,6 @@ public class MainSceneEntryPoint : MonoBehaviour
         _sphereView.Show();
         _cachedView = _sphereView;
         newFigure.BindView(_cachedView);
-        //_cachedView.UpdateValues();
     }
 
     private void HandlerParallelepipedClick()
@@ -186,15 +185,17 @@ public class MainSceneEntryPoint : MonoBehaviour
         _paralView.Show();
         _cachedView = _paralView;
         newFigure.BindView(_cachedView);
-        //_cachedView.UpdateValues();
     }
 
     private void HandlerCapsuleButtonClick()
     {
         HideAllViewsWithMeshes();
         _selectorMesh.SelectedMesh?.HighlightStandart();
+        var newFigure = _meshesGenerator.GenerateCapsuleMesh();
+        _selectorMesh.SelectedMesh = newFigure;
         _capsuleView.Show();
         _cachedView = _capsuleView;
+        newFigure.BindView(_cachedView);
     }
 
     private void HandlerPrismButtonClick()

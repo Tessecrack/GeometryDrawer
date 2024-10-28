@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.GoemetryDrawer.Scripts.Utils
+namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
 {
     public class SphereMesh : BaseMesh
     {
