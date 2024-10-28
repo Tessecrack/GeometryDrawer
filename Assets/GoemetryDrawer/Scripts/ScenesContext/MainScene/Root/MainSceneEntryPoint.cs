@@ -106,14 +106,8 @@ public class MainSceneEntryPoint : MonoBehaviour
         fpController.OnLockUI += HandlerLockUI;
         fpController.OnUnlockUI += HandlerUnlockUI;
         fpController.OnColorMeshChanged += HandlerColorChange;
-        fpController.OnDragAndDrop += HandlerDragAndDrop;
 
         servicesViewModel.OnRemoved += HandlerRemoveMesh;
-    }
-
-    private void HandlerDragAndDrop(Vector3 position)
-    {
-        _selectorMesh.SelectedMesh?.MotionMesh(position);
     }
 
     private void HandlerColorChange(int index)

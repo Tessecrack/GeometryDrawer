@@ -27,7 +27,6 @@ namespace Assets.GoemetryDrawer.Scripts.InputControl
         public event Action OnRemoveMesh;
         public event Action OnLockUI;
         public event Action OnUnlockUI;
-        public event Action<Vector3> OnDragAndDrop;
 
         private Vector3 _rotationMesh = new Vector3();
         private Vector3 _motionMesh = new Vector3();
