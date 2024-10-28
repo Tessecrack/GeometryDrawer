@@ -12,17 +12,14 @@ namespace Assets.GoemetryDrawer.Scripts.InputControl
         private float _cameraHorizontalRotation = 0f;
         private float _rotationSensitive = 10.0f;
 
-        public event Action OnClickSelect;
-        public event Action OnUnclickSelect;
-
-        public event Action OnLockCursor;
-        public event Action OnUnlockCursor;
-
         public event Action<int> OnColorMeshChanged;
-
         public event Action<Vector3> OnRotationMesh;
         public event Action<Vector3> OnMotionMesh;
 
+        public event Action OnClickSelect;
+        public event Action OnUnclickSelect;
+        public event Action OnLockCursor;
+        public event Action OnUnlockCursor;
         public event Action OnResetRotationMesh;
         public event Action OnRemoveMesh;
         public event Action OnLockUI;
