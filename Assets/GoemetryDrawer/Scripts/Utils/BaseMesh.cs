@@ -74,6 +74,11 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
             this.transform.position += direction;
         }
 
+        public virtual void MoveTo(Vector3 newPosition)
+        {
+            this.transform.position = newPosition;
+        }
+
         public virtual void Remove()
         {
             Destroy(this.gameObject);

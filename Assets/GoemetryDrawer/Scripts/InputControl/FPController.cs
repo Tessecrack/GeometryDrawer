@@ -1,11 +1,12 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Assets.GoemetryDrawer.Scripts.InputControl
 {
     public class FPController : MonoBehaviour
     {
+        [SerializeField] private Camera _camera;
+
         private IControllable _controllable;
         private float _cameraVerticalRotation = 0f;
         private float _cameraHorizontalRotation = 0f;
@@ -26,12 +27,20 @@ namespace Assets.GoemetryDrawer.Scripts.InputControl
         public event Action OnRemoveMesh;
         public event Action OnLockUI;
         public event Action OnUnlockUI;
+        public event Action<Vector3> OnDragAndDrop;
 
         private Vector3 _rotationMesh = new Vector3();
         private Vector3 _motionMesh = new Vector3();
 
         private float _speedMesh = 10.0f;
         private bool _isLockMotionGhost = false;
+        
+        private float _cameraDistanceZ;
+
+        private void Start()
+        {
+            _cameraDistanceZ = _camera.WorldToScreenPoint(transform.position).z;
+        }
 
         private void Awake()
         {
@@ -112,7 +121,6 @@ namespace Assets.GoemetryDrawer.Scripts.InputControl
             _controllable.Rotate(rotationDirection);
             _isLockMotionGhost = false;
         }
-
         private void UnlockCursor()
         {
             if (Cursor.visible)

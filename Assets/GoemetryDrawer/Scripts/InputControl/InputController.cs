@@ -17,6 +17,8 @@ namespace Assets.GoemetryDrawer.Scripts.InputControl
             _controller = GetComponent<CharacterController>();
         }
 
+
+
         private void FixedUpdate()
         {
             MoveInternal();

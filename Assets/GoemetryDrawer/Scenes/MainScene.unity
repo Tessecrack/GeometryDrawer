@@ -517,6 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972852c2b7c0ebe4789e41ae841ae6a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _camera: {fileID: 2031703519}
 --- !u!114 &738990789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -844,7 +845,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sphereMeshPrefab: {fileID: 8050386032326062520, guid: 4be70b0a960088b438338aaacee3332b, type: 3}
   _parallelepipedMeshPrefab: {fileID: 161849072734203803, guid: f6556329e6a0b5e46941a8a15fd75f02, type: 3}
-  _prismMeshPrefab: {fileID: 0}
+  _prismMeshPrefab: {fileID: 1857796375829406154, guid: 43dc7b49fe417714689d53fb9bdcaf5b, type: 3}
   _capsuleMeshPrefab: {fileID: 4297826882113978947, guid: 0fa8b3eebe09d6e4b867acbdefd36dfd, type: 3}
   _container: {fileID: 353335}
 --- !u!114 &1668227360

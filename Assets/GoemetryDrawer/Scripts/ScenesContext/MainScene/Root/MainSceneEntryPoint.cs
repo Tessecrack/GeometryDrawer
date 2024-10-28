@@ -106,8 +106,14 @@ public class MainSceneEntryPoint : MonoBehaviour
         fpController.OnLockUI += HandlerLockUI;
         fpController.OnUnlockUI += HandlerUnlockUI;
         fpController.OnColorMeshChanged += HandlerColorChange;
+        fpController.OnDragAndDrop += HandlerDragAndDrop;
 
         servicesViewModel.OnRemoved += HandlerRemoveMesh;
+    }
+
+    private void HandlerDragAndDrop(Vector3 position)
+    {
+        _selectorMesh.SelectedMesh?.MotionMesh(position);
     }
 
     private void HandlerColorChange(int index)
@@ -202,8 +208,11 @@ public class MainSceneEntryPoint : MonoBehaviour
     {
         HideAllViewsWithMeshes();
         _selectorMesh.SelectedMesh?.HighlightStandart();
+        var newFigure = _meshesGenerator.GeneratePrismMesh();
+        _selectorMesh.SelectedMesh = newFigure;
         _prismView.Show();
         _cachedView = _prismView;
+        newFigure.BindView(_cachedView);
     }
 
     private void HideAllViewsWithMeshes()

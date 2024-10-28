@@ -27,5 +27,10 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Child
         {
             OnRadiusChanged?.Invoke(radius);
         }
+
+        public void HandlerSegmentsAmount(int segmentsAmount)
+        {
+
+        }
     }
 }

@@ -32,7 +32,7 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
             _meshCollider.sharedMesh = new Mesh();
 
             _size = 15.0f;
-            _morph = 20;
+            _morph = 15;
             UpdateData();
         }
 

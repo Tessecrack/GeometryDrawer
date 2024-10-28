@@ -77,7 +77,6 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
 
             int vCount = vOffsetSouthCap + _amountSides;
             var vertices = new Vector3[vCount];
-            var uvs = new Vector2[vCount];
             var normals = new Vector3[vCount];
 
             float toTheta = 2f * Mathf.PI / _amountSides;
@@ -106,13 +105,11 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
 
                 // North
                 vertices[lon] = new Vector3(0f, _height / 2f + _radius, 0f);
-                uvs[lon] = new Vector2(sTexPolar, 1f);
                 normals[lon] = new Vector3(0f, 1f, 0f);
 
                 // South
                 int i = vOffsetSouthCap + lon;
                 vertices[i] = new Vector3(0f, -(_height / 2f + _radius), 0f);
-                uvs[i] = new Vector2(sTexPolar, 0f);
                 normals[i] = new Vector3(0f, -1f, 0f);
             }
 
@@ -129,13 +126,11 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
                 // North equator
                 int idxn = vOffsetNorthEquator + lon;
                 vertices[idxn] = new Vector3(rtc.x, _height / 2f, -rtc.y);
-                uvs[idxn] = new Vector2(sTex, vtAspectNorth);
                 normals[idxn] = new Vector3(tc.x, 0f, -tc.y);
 
                 // South equator
                 int idxs = vOffsetSouthEquator + lon;
                 vertices[idxs] = new Vector3(rtc.x, -_height / 2f, -rtc.y);
-                uvs[idxs] = new Vector2(sTex, vtAspectSouth);
                 normals[idxs] = new Vector3(tc.x, 0f, -tc.y);
             }
 
@@ -175,7 +170,6 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
                         zOffsetNorth,
                         -rhoCosPhiNorth * tc.y
                     );
-                    uvs[idxn] = new Vector2(sTex, tTexNorth);
                     normals[idxn] = new Vector3(
                         cosPhiNorth * tc.x,
                         -sinPhiNorth,
@@ -189,7 +183,6 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
                         zOffsetSouth,
                         -rhoCosPhiSouth * tc.y
                     );
-                    uvs[idxs] = new Vector2(sTex, tTexSouth);
                     normals[idxs] = new Vector3(
                         cosPhiSouth * tc.x,
                         -sinPhiSouth,
@@ -218,7 +211,6 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
                         float sTex = sTexCache[lon];
 
                         vertices[index] = new Vector3(rtc.x, z, -rtc.y);
-                        uvs[index] = new Vector2(sTex, tTex);
                         normals[index] = new Vector3(tc.x, 0f, -tc.y);
                         ++index;
                     }
@@ -313,15 +305,15 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
                 }
             }
 
-            Mesh mesh = new Mesh();
-            mesh.name = "Capsule";
-            mesh.vertices = vertices;
-            mesh.uv = uvs;
-            mesh.normals = normals;
-            mesh.triangles = triangles;
-
-            _filter.mesh = mesh;
+            Mesh mesh = new Mesh
+            {
+                vertices = vertices,
+                normals = normals,
+                triangles = triangles
+            };
             _mesh = mesh;
+
+            _filter.mesh = _mesh;
             _collider.sharedMesh = _mesh;
         }
     }
