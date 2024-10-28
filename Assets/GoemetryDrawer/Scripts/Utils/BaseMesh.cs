@@ -31,6 +31,7 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
         {
             _meshRenderer = GetComponent<MeshRenderer>();
             Initialize();
+            this.transform.localPosition = Vector3.zero;
         }
 
         protected abstract void Initialize();

@@ -13,11 +13,11 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
         private List<int> _triangles = new List<int>();
 
         [SerializeField] private float _size = 10;
-        [SerializeField] private int _resolution = 20;
+        [SerializeField] private int _morph = 20;
         [SerializeField] private Vector3 _origin;
         [SerializeField] private bool _isSphere = true;
 
-        public int Resolution => _resolution;
+        public int Resolution => _morph;
         public float Radius => _size;
 
         private MeshCollider _meshCollider;
@@ -31,8 +31,8 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
             _meshFilter.mesh = new Mesh();
             _meshCollider.sharedMesh = new Mesh();
 
-            _size = 5.0f;
-            _resolution = 20;
+            _size = 15.0f;
+            _morph = 20;
             UpdateData();
         }
 
@@ -44,17 +44,17 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
 
         public void UpdateResolution(int newResolution)
         {
-            _resolution = newResolution;
+            _morph = newResolution;
             UpdateData();
         }
 
         private void UpdateData()
         {
             //clamps resolution avoid errors and performance issues
-            _resolution = Mathf.Clamp(_resolution, 1, 30);
+            _morph = Mathf.Clamp(_morph, 1, 30);
 
             //only generate when changes occur
-            GenerateCube(_size, _resolution, _origin);
+            GenerateCube(_size, _morph, _origin);
             if (_isSphere)
             {
                 _cubeMesh.vertices = SpherizeVectors(_cubeMesh.vertices);

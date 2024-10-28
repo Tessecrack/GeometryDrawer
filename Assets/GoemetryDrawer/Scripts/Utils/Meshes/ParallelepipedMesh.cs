@@ -32,9 +32,9 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
             _meshCollider = this.GetComponent<MeshCollider>();
             _position = this.transform.position;
             
-            _width = 5f;
-            _height = 5f;
-            _length = 5f;
+            _width = 15f;
+            _height = 15f;
+            _length = 15f;
 
             UpdatePrimitive();
         }

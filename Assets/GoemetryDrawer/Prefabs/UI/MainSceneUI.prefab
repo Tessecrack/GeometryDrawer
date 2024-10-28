@@ -420,9 +420,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 269057099857862704}
   m_Direction: 0
   m_MinValue: 1
-  m_MaxValue: 15
+  m_MaxValue: 50
   m_WholeNumbers: 0
-  m_Value: 10
+  m_Value: 15
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -898,8 +898,8 @@ MonoBehaviour:
   m_FillRect: {fileID: 5642700274704182399}
   m_HandleRect: {fileID: 5933487354212241549}
   m_Direction: 0
-  m_MinValue: 2
-  m_MaxValue: 30
+  m_MinValue: 1
+  m_MaxValue: 50
   m_WholeNumbers: 0
   m_Value: 15
   m_OnValueChanged:
@@ -2579,7 +2579,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 7657553677423266034}
   m_Direction: 0
   m_MinValue: 1
-  m_MaxValue: 30
+  m_MaxValue: 50
   m_WholeNumbers: 0
   m_Value: 15
   m_OnValueChanged:
@@ -4187,7 +4187,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 6844276712573037812}
   m_Direction: 0
   m_MinValue: 1
-  m_MaxValue: 30
+  m_MaxValue: 50
   m_WholeNumbers: 1
   m_Value: 15
   m_OnValueChanged:
@@ -4355,7 +4355,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1909809165381886141}
   m_Direction: 0
   m_MinValue: 1
-  m_MaxValue: 30
+  m_MaxValue: 50
   m_WholeNumbers: 1
   m_Value: 15
   m_OnValueChanged:
@@ -5666,7 +5666,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 9178205102559284508}
   m_Direction: 0
   m_MinValue: 1
-  m_MaxValue: 30
+  m_MaxValue: 50
   m_WholeNumbers: 1
   m_Value: 15
   m_OnValueChanged:
@@ -7830,7 +7830,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8544773532655455983
 Transform:
   m_ObjectHideFlags: 0
@@ -8630,7 +8630,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3584454568236332362}
   m_Direction: 0
   m_MinValue: 3
-  m_MaxValue: 30
+  m_MaxValue: 50
   m_WholeNumbers: 1
   m_Value: 15
   m_OnValueChanged:

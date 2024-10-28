@@ -26,7 +26,7 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
             _renderer = GetComponent<MeshRenderer>();
             _collider = GetComponent<MeshCollider>();
 
-            _radius = 0.5f;
+            _radius = 15.0f;
             _height = 15.0f;
             _amountSides = 15;
 
@@ -323,7 +323,6 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
             _filter.mesh = mesh;
             _mesh = mesh;
             _collider.sharedMesh = _mesh;
-            this.transform.localPosition = Vector3.zero;
         }
     }
 }

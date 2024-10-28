@@ -46,7 +46,7 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
         {
             _viewModel.HandlerHeightChanged(_sliderHeight.value);
             var selectedMesh = (CapsuleMesh)_meshSelector.SelectedMesh;
-            selectedMesh.UpdateHeight((int)_sliderRadius.value);
+            selectedMesh.UpdateHeight((int)_sliderHeight.value);
         }
 
         public override void Enable()
