@@ -565,10 +565,10 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7563591665586119901}
-        m_TargetAssemblyTypeName: Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs.ParallelepipedSettingsMenuView,
+      - m_Target: {fileID: 8913020286810291440}
+        m_TargetAssemblyTypeName: Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs.PrismSettingsMenuView,
           Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: HandlerSegmentsAmountChanged
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3041,7 +3041,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -800.47644, y: -31.719421}
-  m_SizeDelta: {x: 800, y: 800}
+  m_SizeDelta: {x: 800, y: 900}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3798075495844410967
 GameObject:
@@ -6466,35 +6466,39 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Right click mouse button + WASD - "Ghost"
+  m_text: 'Right click mouse button + WASD + Rotation mouse - "Ghost"
 
 
-    Click on buttons Capsule/Sphere/Paral/Prism
-    - create new mesh in 0,0,0 point
-
-
-    Left click on object - Select object
+    Click
+    on buttons Capsule/Sphere/Paral/Prism - create new mesh in 0,0,0 point
 
 
     Left
-    shift + Q/W/E/A/S/D - motion mesh
+    click on object - Select object
 
 
-    Left shift + Z/X/C - rotation mesh
+    Left shift + Q/W/E/A/S/D - motion mesh
 
 
     Left
-    shift + V - reset rotation mesh
+    shift + Z/X/C - rotation mesh
 
 
-    Left shift + 1/2/3/4/5/6 - change color
+    Left shift + V - reset rotation mesh
 
 
-    R
-    - reset view camera
+    Left
+    shift + 1/2/3/4/5/6 - change color
 
 
-    Del (selected object) - removed selected mesh'
+    R - reset view camera
+
+
+    Del (selected
+    object) - removed selected mesh
+
+
+    Esc - close app'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7527,8 +7531,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -110, y: 2}
-  m_SizeDelta: {x: 250, y: 70}
+  m_AnchoredPosition: {x: -124.99999, y: 2}
+  m_SizeDelta: {x: 200, y: 70}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &1340940061367549525
 CanvasRenderer:
@@ -7560,7 +7564,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 46
+    m_FontSize: 36
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -7683,7 +7687,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: -23.6, y: 2}
-  m_SizeDelta: {x: 70, y: 70}
+  m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &7990525966592138145
 CanvasRenderer:

@@ -53,7 +53,7 @@ namespace Assets.GoemetryDrawer.Scripts.Root
             yield return LoadScene(MAIN_SCENE);
 
             var mainSceneEntryPoint = Object.FindFirstObjectByType<MainSceneEntryPoint>();
-
+            mainSceneEntryPoint.OnCloseApp += CloseApp;
             var mainSceneContainer = new DIContainer(_diContainer);
             mainSceneEntryPoint.Run(mainSceneContainer);
         }
@@ -61,6 +61,15 @@ namespace Assets.GoemetryDrawer.Scripts.Root
         private IEnumerator LoadScene(string sceneName)
         {
             yield return SceneManager.LoadSceneAsync(sceneName);
+        }
+
+        private void CloseApp()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
+            Application.Quit();
+
         }
     }
 }

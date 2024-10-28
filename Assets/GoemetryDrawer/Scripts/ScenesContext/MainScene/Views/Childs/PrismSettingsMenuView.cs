@@ -40,7 +40,7 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
         {
             _viewModel.HandlerRadiusChanged(_sliderRadius.value);
             var selectedMesh = (PrismMesh)_meshSelector.SelectedMesh;
-            selectedMesh.UpdateHeight(_sliderRadius.value);
+            selectedMesh.UpdateRadius(_sliderRadius.value);
         }
 
         public void HandlerSegmentsAmountChanged()

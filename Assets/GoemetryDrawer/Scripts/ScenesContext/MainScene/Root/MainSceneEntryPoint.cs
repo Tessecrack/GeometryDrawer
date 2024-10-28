@@ -8,6 +8,7 @@ using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views;
 using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs;
 using Assets.GoemetryDrawer.Scripts.Services.Meshes;
 using Assets.GoemetryDrawer.Scripts.Utils;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,6 +34,8 @@ public class MainSceneEntryPoint : MonoBehaviour
     private List<BaseView> _allViewsWithMeshes = new();
 
     private ListMaterials _materials;
+
+    public event Action OnCloseApp;
 
     public void Run(DIContainer container)
     {
@@ -106,8 +109,13 @@ public class MainSceneEntryPoint : MonoBehaviour
         fpController.OnLockUI += HandlerLockUI;
         fpController.OnUnlockUI += HandlerUnlockUI;
         fpController.OnColorMeshChanged += HandlerColorChange;
-
+        fpController.OnExitClick += HandlerExitClick;
         servicesViewModel.OnRemoved += HandlerRemoveMesh;
+    }
+
+    private void HandlerExitClick()
+    {
+        OnCloseApp?.Invoke();
     }
 
     private void HandlerColorChange(int index)
