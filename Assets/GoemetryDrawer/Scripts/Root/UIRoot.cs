@@ -1,20 +1,24 @@
-using UnityEngine;
-
+﻿using UnityEngine;
 
 namespace Assets.GoemetryDrawer.Scripts.Root
 {
     public class UIRoot : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+        [SerializeField] private Transform _uiContainer;
 
+        public void AttachSceneUI(GameObject sceneUI)
+        {
+            Clear();
+            sceneUI.transform.SetParent(_uiContainer, false);
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Clear()
         {
-
+            var childsCount = _uiContainer.childCount;
+            for (int i = 0; i < childsCount; i++)
+            {
+                Destroy(_uiContainer.GetChild(i).gameObject);
+            }
         }
     }
 }

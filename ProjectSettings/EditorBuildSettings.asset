@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/GoemetryDrawer/Scenes/BOOT.unity
+    guid: c14243caac7769144af10aff65b86433
+  - enabled: 1
+    path: Assets/GoemetryDrawer/Scenes/MainScene.unity
+    guid: bf650def6c1ad6a449289db00996fc4c
   m_configObjects: {}
