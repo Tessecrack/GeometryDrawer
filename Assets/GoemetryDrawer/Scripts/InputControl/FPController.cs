@@ -22,6 +22,7 @@ namespace Assets.GoemetryDrawer.Scripts.InputControl
         public event Action<Vector3> OnMotionMesh;
 
         public event Action OnResetRotationMesh;
+        public event Action OnRemoveMesh;
 
         private Vector3 _rotationMesh = new Vector3();
         private Vector3 _motionMesh = new Vector3();
@@ -87,6 +88,11 @@ namespace Assets.GoemetryDrawer.Scripts.InputControl
             if (Input.GetMouseButtonUp(0))
             {
                 OnUnclickSelect?.Invoke();
+            }
+            if (Input.GetKeyDown(KeyCode.Delete))
+            {
+                Debug.Log("DELETE");
+                OnRemoveMesh?.Invoke();
             }
             var rotationDirection = Vector3.right * _cameraVerticalRotation + Vector3.up * _cameraHorizontalRotation;
             if (_isLockMotionGhost)

@@ -67,5 +67,10 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
         {
             this.transform.position += direction;
         }
+
+        public virtual void Remove()
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

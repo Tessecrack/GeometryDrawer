@@ -102,6 +102,16 @@ public class MainSceneEntryPoint : MonoBehaviour
         fpController.OnRotationMesh      += HandlerRotationMesh;
         fpController.OnResetRotationMesh += HandlerResetRotationMesh;
         fpController.OnMotionMesh += HandlerMotionMesh;
+        fpController.OnRemoveMesh += HandlerRemoveMesh;
+
+        servicesViewModel.OnRemoved += HandlerRemoveMesh;
+    }
+
+    private void HandlerRemoveMesh()
+    {
+        _selectorMesh.SelectedMesh?.BindedView.Hide();
+        _selectorMesh.SelectedMesh?.Remove();
+        _selectorMesh.SelectedMesh = null; // dangerous
     }
 
     private void HandlerMotionMesh(Vector3 direction)

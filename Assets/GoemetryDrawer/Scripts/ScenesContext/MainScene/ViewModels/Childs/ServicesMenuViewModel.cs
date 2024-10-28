@@ -5,7 +5,6 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.ViewModels.Child
 {
     public class ServicesMenuViewModel
     {
-        public event Action OnCreated;
         public event Action OnRemoved;
 
         public ServicesMenuViewModel(DIContainer container) 
