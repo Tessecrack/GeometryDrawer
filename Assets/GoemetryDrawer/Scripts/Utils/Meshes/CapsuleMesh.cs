@@ -6,7 +6,7 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
     {
         [SerializeField] private float _radius = 0.5f;
         [SerializeField] private float _height = 1f;
-        [SerializeField, Range(3, 50)] private int _amountSides = 32;
+        [SerializeField, Range(3, 50)] private int _amountSides = 15;
 
         private int _latitudes = 25;
         private int _rings = 2;
@@ -16,72 +16,85 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
         private MeshCollider _collider;
         private Mesh _mesh;
 
+        public float Radius => _radius;
+        public float Height => _height;
+        public int AmountSides => _amountSides;
+
         protected override void Initialize()
         {
             _filter = GetComponent<MeshFilter>();
             _renderer = GetComponent<MeshRenderer>();
             _collider = GetComponent<MeshCollider>();
 
+            _radius = 0.5f;
+            _height = 15.0f;
+            _amountSides = 15;
 
-            UpdateData(_height, _radius, _amountSides);
+            UpdateData();
             _filter.mesh = _mesh;
+        }
+
+
+        public void ResetPosition()
+        {
+            this.transform.position = Vector3.zero;
         }
 
         public void UpdateHeight(float newHeight)
         {
             _height = newHeight;
-            UpdateData(_height, _radius, _amountSides);
+            UpdateData();
         }
 
         public void UpdateRadius(float newRadius)
         {
            _radius = newRadius;
-            UpdateData(_height, _radius, _amountSides);
+            UpdateData();
         }
 
         public void UpdateAmountSides(int newAmountSides)
         {
             _amountSides = newAmountSides;
-            UpdateData(_height, _radius, _amountSides);
+            UpdateData();
         }
 
-        public void UpdateData(float height, float radius, int amountSides)
+        public void UpdateData()
         {
             _latitudes = _latitudes % 2 != 0 ? _latitudes + 1 : _latitudes;
 
             int halfLats = _latitudes / 2;
 
             // vertext index offsets
-            int vOffsetNorthHemi = amountSides;
-            int vOffsetNorthEquator = vOffsetNorthHemi + (amountSides + 1) * (halfLats - 1);
-            int vOffsetCylinder = vOffsetNorthEquator + (amountSides + 1);
+            int vOffsetNorthHemi = _amountSides;
+            int vOffsetNorthEquator = vOffsetNorthHemi + (_amountSides + 1) * (halfLats - 1);
+            int vOffsetCylinder = vOffsetNorthEquator + (_amountSides + 1);
             int vOffsetSouthEquator = (_rings > 0) ?
-                vOffsetCylinder + (amountSides + 1) * _rings :
+                vOffsetCylinder + (_amountSides + 1) * _rings :
                 vOffsetCylinder;
-            int vOffsetSouthHemi = vOffsetSouthEquator + (amountSides + 1);
-            int vOffsetSouthPolar = vOffsetSouthHemi + (amountSides + 1) * (halfLats - 2);
-            int vOffsetSouthCap = vOffsetSouthPolar + (amountSides + 1);
+            int vOffsetSouthHemi = vOffsetSouthEquator + (_amountSides + 1);
+            int vOffsetSouthPolar = vOffsetSouthHemi + (_amountSides + 1) * (halfLats - 2);
+            int vOffsetSouthCap = vOffsetSouthPolar + (_amountSides + 1);
 
-            int vCount = vOffsetSouthCap + amountSides;
+            int vCount = vOffsetSouthCap + _amountSides;
             var vertices = new Vector3[vCount];
             var uvs = new Vector2[vCount];
             var normals = new Vector3[vCount];
 
-            float toTheta = 2f * Mathf.PI / amountSides;
+            float toTheta = 2f * Mathf.PI / _amountSides;
             float toPhi = Mathf.PI / _latitudes;
-            float toTexHorizontal = 1f / amountSides;
+            float toTexHorizontal = 1f / _amountSides;
             float toTexVertical = 1f / halfLats;
 
             float vtAspectRatio = 1f / 3f;
             float vtAspectNorth = 1f - vtAspectRatio;
             float vtAspectSouth = vtAspectRatio;
 
-            var thetaCartesian = new Vector2[amountSides];
-            var rhoThetaCartesian = new Vector2[amountSides];
-            var sTexCache = new float[amountSides + 1];
+            var thetaCartesian = new Vector2[_amountSides];
+            var rhoThetaCartesian = new Vector2[_amountSides];
+            var sTexCache = new float[_amountSides + 1];
 
             // Polar vertices
-            for (int lon = 0; lon < amountSides; ++lon)
+            for (int lon = 0; lon < _amountSides; ++lon)
             {
                 float lf = lon;
                 float sTexPolar = 1f - ((lf + .5f) * toTexHorizontal);
@@ -89,39 +102,39 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
                 float sinTheta = Mathf.Sin(lf * toTheta);
 
                 thetaCartesian[lon] = new Vector2(cosTheta, sinTheta);
-                rhoThetaCartesian[lon] = radius * new Vector2(cosTheta, sinTheta);
+                rhoThetaCartesian[lon] = _radius * new Vector2(cosTheta, sinTheta);
 
                 // North
-                vertices[lon] = new Vector3(0f, height / 2f + radius, 0f);
+                vertices[lon] = new Vector3(0f, _height / 2f + _radius, 0f);
                 uvs[lon] = new Vector2(sTexPolar, 1f);
                 normals[lon] = new Vector3(0f, 1f, 0f);
 
                 // South
                 int i = vOffsetSouthCap + lon;
-                vertices[i] = new Vector3(0f, -(height / 2f + radius), 0f);
+                vertices[i] = new Vector3(0f, -(_height / 2f + _radius), 0f);
                 uvs[i] = new Vector2(sTexPolar, 0f);
                 normals[i] = new Vector3(0f, -1f, 0f);
             }
 
             // Equatorial vertices
-            for (int lon = 0; lon <= amountSides; ++lon)
+            for (int lon = 0; lon <= _amountSides; ++lon)
             {
                 float sTex = 1f - lon * toTexHorizontal;
                 sTexCache[lon] = sTex;
 
-                int ll = lon % amountSides;
+                int ll = lon % _amountSides;
                 Vector2 tc = thetaCartesian[ll];
                 Vector2 rtc = rhoThetaCartesian[ll];
 
                 // North equator
                 int idxn = vOffsetNorthEquator + lon;
-                vertices[idxn] = new Vector3(rtc.x, height / 2f, -rtc.y);
+                vertices[idxn] = new Vector3(rtc.x, _height / 2f, -rtc.y);
                 uvs[idxn] = new Vector2(sTex, vtAspectNorth);
                 normals[idxn] = new Vector3(tc.x, 0f, -tc.y);
 
                 // South equator
                 int idxs = vOffsetSouthEquator + lon;
-                vertices[idxs] = new Vector3(rtc.x, -height / 2f, -rtc.y);
+                vertices[idxs] = new Vector3(rtc.x, -_height / 2f, -rtc.y);
                 uvs[idxs] = new Vector2(sTex, vtAspectSouth);
                 normals[idxs] = new Vector3(tc.x, 0f, -tc.y);
             }
@@ -135,25 +148,25 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
                 float cosPhiNorth = sinPhiSouth;
                 float sinPhiNorth = -cosPhiSouth;
 
-                float rhoCosPhiNorth = radius * cosPhiNorth;
-                float rhoSinPhiNorth = radius * sinPhiNorth;
-                float zOffsetNorth = height / 2f - rhoSinPhiNorth;
-                float rhoCosPhiSouth = radius * cosPhiSouth;
-                float rhoSinPhiSouth = radius * sinPhiSouth;
-                float zOffsetSouth = -height / 2f - rhoSinPhiSouth;
+                float rhoCosPhiNorth = _radius * cosPhiNorth;
+                float rhoSinPhiNorth = _radius * sinPhiNorth;
+                float zOffsetNorth = _height / 2f - rhoSinPhiNorth;
+                float rhoCosPhiSouth = _radius * cosPhiSouth;
+                float rhoSinPhiSouth = _radius * sinPhiSouth;
+                float zOffsetSouth = -_height / 2f - rhoSinPhiSouth;
 
                 float tTexFac = (lat + 1f) * toTexVertical;
                 float cmplTexFac = 1f - tTexFac;
                 float tTexNorth = cmplTexFac + vtAspectNorth * tTexFac;
                 float tTexSouth = cmplTexFac * vtAspectSouth;
 
-                int vCurrentLatNorth = vOffsetNorthHemi + (lat * (amountSides + 1));
-                int vCurrentLatSouth = vOffsetSouthHemi + (lat * (amountSides + 1));
+                int vCurrentLatNorth = vOffsetNorthHemi + (lat * (_amountSides + 1));
+                int vCurrentLatSouth = vOffsetSouthHemi + (lat * (_amountSides + 1));
 
-                for (int lon = 0; lon <= amountSides; ++lon)
+                for (int lon = 0; lon <= _amountSides; ++lon)
                 {
                     float sTex = sTexCache[lon];
-                    Vector2 tc = thetaCartesian[lon % amountSides];
+                    Vector2 tc = thetaCartesian[lon % _amountSides];
 
                     // North hemisphere
                     int idxn = vCurrentLatNorth + lon;
@@ -196,12 +209,12 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
                     float fac = h * toFac;
                     float cmplFac = 1f - fac;
                     float tTex = cmplFac * vtAspectNorth + fac * vtAspectSouth;
-                    float z = (height / 2f) - height * fac;
+                    float z = (_height / 2f) - _height * fac;
 
-                    for (int lon = 0; lon <= amountSides; ++lon)
+                    for (int lon = 0; lon <= _amountSides; ++lon)
                     {
-                        var tc = thetaCartesian[lon % amountSides];
-                        var rtc = rhoThetaCartesian[lon % amountSides];
+                        var tc = thetaCartesian[lon % _amountSides];
+                        var rtc = rhoThetaCartesian[lon % _amountSides];
                         float sTex = sTexCache[lon];
 
                         vertices[index] = new Vector3(rtc.x, z, -rtc.y);
@@ -213,8 +226,8 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
             }
 
             // Triangle indices
-            int long3 = amountSides * 3;
-            int long6 = amountSides * 6;
+            int long3 = _amountSides * 3;
+            int long6 = _amountSides * 6;
             int hemiLong = (halfLats - 1) * long6;
 
             int tOffsetNorthHemi = long3;
@@ -226,7 +239,7 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
             var triangles = new int[triCount];
 
             // Polar caps
-            for (int i = 0, k = 0, m = tOffsetSouthCap; i < amountSides; ++i, k += 3, m += 3)
+            for (int i = 0, k = 0, m = tOffsetSouthCap; i < _amountSides; ++i, k += 3, m += 3)
             {
                 // North
                 triangles[k] = i;
@@ -241,12 +254,12 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
             // Hemispheres
             for (int i = 0, k = tOffsetNorthHemi, m = tOffsetSouthHemi; i < (halfLats - 1); ++i)
             {
-                int vCurrentLatNorth = vOffsetNorthHemi + (i * (amountSides + 1));
-                int vNextLatNorth = vCurrentLatNorth + (amountSides + 1);
-                int vCurrentLatSouth = vOffsetSouthEquator + (i * (amountSides + 1));
-                int vNextLatSouth = vCurrentLatSouth + (amountSides + 1);
+                int vCurrentLatNorth = vOffsetNorthHemi + (i * (_amountSides + 1));
+                int vNextLatNorth = vCurrentLatNorth + (_amountSides + 1);
+                int vCurrentLatSouth = vOffsetSouthEquator + (i * (_amountSides + 1));
+                int vNextLatSouth = vCurrentLatSouth + (_amountSides + 1);
 
-                for (int j = 0; j < amountSides; ++j, k += 6, m += 6)
+                for (int j = 0; j < _amountSides; ++j, k += 6, m += 6)
                 {
                     // North
                     int n00 = vCurrentLatNorth + j;
@@ -281,10 +294,10 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
             // Cylinder
             for (int i = 0, k = tOffsetCylinder; i <= _rings; ++i)
             {
-                int vCurrentLat = vOffsetNorthEquator + i * (amountSides + 1);
-                int vNextLat = vCurrentLat + (amountSides + 1);
+                int vCurrentLat = vOffsetNorthEquator + i * (_amountSides + 1);
+                int vNextLat = vCurrentLat + (_amountSides + 1);
 
-                for (int j = 0; j < amountSides; ++j, k += 6)
+                for (int j = 0; j < _amountSides; ++j, k += 6)
                 {
                     int cy00 = vCurrentLat + j;
                     int cy01 = vNextLat + j;
@@ -307,10 +320,10 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
             mesh.normals = normals;
             mesh.triangles = triangles;
 
-            mesh.Optimize();
-            mesh.RecalculateTangents();
-
+            _filter.mesh = mesh;
             _mesh = mesh;
+            _collider.sharedMesh = _mesh;
+            this.transform.localPosition = Vector3.zero;
         }
     }
 }

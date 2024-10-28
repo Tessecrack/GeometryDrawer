@@ -123,9 +123,4 @@ MonoBehaviour:
   _selectedMaterial: {fileID: 2100000, guid: da7f0a8f949dafb448ff76c17405a1a2, type: 2}
   _radius: 0.5
   _height: 1
-  _latitudes: 16
-  _longitudes: 32
-  _rings: 2
-  _material: {fileID: 2100000, guid: eb2bd1f87c49111419692318be384af1, type: 2}
-  _filter: {fileID: 0}
-  _renderer: {fileID: 0}
+  _amountSides: 15
