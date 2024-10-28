@@ -37,21 +37,6 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
             // TODO
         }
 
-        public override void RotateX(float xValue)
-        {
-            // TODO
-        }
-
-        public override void RotateY(float yValue)
-        {
-            // TODO
-        }
-
-        public override void RotateZ(float zValue)
-        {
-            // TODO
-        }
-
         public override void UpdateValues()
         {
             

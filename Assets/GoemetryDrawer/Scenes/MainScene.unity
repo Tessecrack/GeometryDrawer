@@ -792,6 +792,7 @@ GameObject:
   - component: {fileID: 1668227357}
   - component: {fileID: 1668227358}
   - component: {fileID: 1668227359}
+  - component: {fileID: 1668227360}
   m_Layer: 0
   m_Name: EntryPoint
   m_TagString: Untagged
@@ -843,7 +844,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sphereMeshPrefab: {fileID: 8050386032326062520, guid: 4be70b0a960088b438338aaacee3332b, type: 3}
   _parallelepipedMeshPrefab: {fileID: 161849072734203803, guid: f6556329e6a0b5e46941a8a15fd75f02, type: 3}
+  _prismMeshPrefab: {fileID: 0}
+  _capsuleMeshPrefab: {fileID: 0}
   _container: {fileID: 353335}
+--- !u!114 &1668227360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668227356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e79821ce9411140b4afb13d0ca88fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _materials:
+  - {fileID: 2100000, guid: 635ce4be3154aab48a4350f9e4408adc, type: 2}
+  - {fileID: 2100000, guid: c474ebf7a05d74142b70712e8cddb8b2, type: 2}
+  - {fileID: 2100000, guid: f820f3885b5621b4290701b529dd03b4, type: 2}
+  - {fileID: 2100000, guid: be6bc0fd3937dcd408b11f6b6c090b42, type: 2}
+  - {fileID: 2100000, guid: b778d028d65d6164e99a58a1f90f7e8e, type: 2}
+  - {fileID: 2100000, guid: 389c88b1db554d241b1d0d41446ae813, type: 2}
+  - {fileID: 2100000, guid: eb2bd1f87c49111419692318be384af1, type: 2}
 --- !u!1 &1777474096
 GameObject:
   m_ObjectHideFlags: 0

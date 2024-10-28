@@ -37,13 +37,9 @@ namespace Assets.GoemetryDrawer.Scripts.Root
             _uiRoot = Object.Instantiate(uiRootPrefab);
             Object.DontDestroyOnLoad(_uiRoot);
 
-            var sphereMeshPrefab = Resources.Load<SphereMesh>("SphereMesh");
-            var sphereMesh = Object.Instantiate(sphereMeshPrefab);
-            sphereMesh.gameObject.SetActive(false);
-
             _diContainer = new DIContainer();
             _diContainer.RegisterInstance(_uiRoot).AsSingle();
-            _diContainer.RegisterInstance(sphereMesh);
+            
         }
 
         private void Run()

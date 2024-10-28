@@ -61,27 +61,6 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
             _meshSelector.SelectedMesh.gameObject.SetActive(false);
         }
 
-        public override void RotateX(float xValue)
-        {
-            var selectedMesh = _meshSelector.SelectedMesh;
-            var temp = selectedMesh.transform.eulerAngles;
-            selectedMesh.transform.eulerAngles = new Vector3(xValue, temp.y, temp.z);
-        }
-
-        public override void RotateY(float yValue)
-        {
-            var selectedMesh = _meshSelector.SelectedMesh;
-            var temp = selectedMesh.transform.eulerAngles;
-            selectedMesh.transform.eulerAngles = new Vector3(temp.x, yValue, temp.z);
-        }
-
-        public override void RotateZ(float zValue)
-        {
-            var selectedMesh = _meshSelector.SelectedMesh;
-            var temp = selectedMesh.transform.eulerAngles;
-            selectedMesh.transform.eulerAngles = new Vector3(temp.x, temp.y, zValue);
-        }
-
         public void UpdatePosition(Vector3 position)
         {
             var selectedMesh = _meshSelector.SelectedMesh;

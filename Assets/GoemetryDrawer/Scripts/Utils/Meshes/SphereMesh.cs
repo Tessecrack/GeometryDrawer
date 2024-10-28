@@ -7,21 +7,15 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
     {
         private Mesh _planeMesh;
         private Mesh _cubeMesh;
-        
+
         private MeshFilter _meshFilter;
         private List<Vector3> _vertices = new List<Vector3>();
         private List<int> _triangles = new List<int>();
 
-        [SerializeField] private float _size;
+        [SerializeField] private float _size = 10;
         [SerializeField] private int _resolution = 20;
         [SerializeField] private Vector3 _origin;
         [SerializeField] private bool _isSphere = true;
-
-        //helper Variables
-        private float _previousSize;
-        private int _previousResolution;
-        private Vector3 _previousOrigin;
-        private bool _previousSphereState;
 
         public int Resolution => _resolution;
         public float Radius => _size;
@@ -36,7 +30,10 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
             _meshCollider = this.GetComponent<MeshCollider>();
             _meshFilter.mesh = new Mesh();
             _meshCollider.sharedMesh = new Mesh();
-            
+
+            _size = 5.0f;
+            _resolution = 20;
+            UpdateData();
         }
 
         public void UpdateRadius(float newRadius)
@@ -57,18 +54,13 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
             _resolution = Mathf.Clamp(_resolution, 1, 30);
 
             //only generate when changes occur
-            if (ValuesHaveChanged())
+            GenerateCube(_size, _resolution, _origin);
+            if (_isSphere)
             {
-                GenerateCube(_size, _resolution, _origin);
-                if (_isSphere)
-                {
-                    _cubeMesh.vertices = SpherizeVectors(_cubeMesh.vertices);
-                }
-                AssignMesh(_cubeMesh);
-                _meshCollider.sharedMesh = _cubeMesh;
-                //help keep track of changes
-                AssignValuesAsPreviousValues();
+                _cubeMesh.vertices = SpherizeVectors(_cubeMesh.vertices);
             }
+            AssignMesh(_cubeMesh);
+            _meshCollider.sharedMesh = _cubeMesh;
         }
 
         void GenerateCube(float size, int resolution, Vector3 origin)
@@ -251,26 +243,6 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
                 vectors[i] = _origin + lerpdVector;
             }
             return vectors;
-        }
-
-        bool ValuesHaveChanged()
-        {
-            if (_previousSize != _size || _previousResolution != _resolution || _previousOrigin != _origin || _previousSphereState != _isSphere)
-            {
-                return true;
-            }
-            else return false;
-        }
-
-        void AssignValuesAsPreviousValues()
-        {
-            _previousSize = _size;
-            _previousResolution = _resolution;
-            _previousOrigin = _origin;
-            _previousSize = _size;
-            _previousResolution = _resolution;
-            _previousOrigin = _origin;
-            _previousSphereState = _isSphere;
         }
     }
 }

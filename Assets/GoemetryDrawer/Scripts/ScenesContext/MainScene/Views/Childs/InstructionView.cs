@@ -3,16 +3,15 @@ using UnityEngine.UI;
 
 namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
 {
-    public class InstructionView
+    public class InstructionView : MonoBehaviour
     {
-
         [SerializeField] private Toggle _toggleInstruction;
 
-        //public void Bind()
+        [SerializeField] private GameObject _instruction;
 
-        public void HandlerToggleValueChanged()
+        public void HandlerToggleValueChanged(bool value)
         {
-
+            _instruction.gameObject.SetActive(_toggleInstruction.isOn);
         }
     }
 }

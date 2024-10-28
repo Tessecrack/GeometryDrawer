@@ -22,9 +22,5 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views
         public abstract void Enable();
 
         public abstract void Disable();
-
-        public abstract void RotateX(float xValue);
-        public abstract void RotateY(float yValue);
-        public abstract void RotateZ(float zValue);
     }
 }

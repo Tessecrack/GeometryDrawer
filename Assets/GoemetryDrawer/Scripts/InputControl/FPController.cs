@@ -17,12 +17,15 @@ namespace Assets.GoemetryDrawer.Scripts.InputControl
         public event Action OnLockCursor;
         public event Action OnUnlockCursor;
 
+        public event Action<int> OnColorMeshChanged;
 
         public event Action<Vector3> OnRotationMesh;
         public event Action<Vector3> OnMotionMesh;
 
         public event Action OnResetRotationMesh;
         public event Action OnRemoveMesh;
+        public event Action OnLockUI;
+        public event Action OnUnlockUI;
 
         private Vector3 _rotationMesh = new Vector3();
         private Vector3 _motionMesh = new Vector3();
@@ -45,8 +48,14 @@ namespace Assets.GoemetryDrawer.Scripts.InputControl
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 _isLockMotionGhost = true;
+                OnLockUI?.Invoke();
+                InputDigit();
                 RotationMesh();
                 MotionMesh();
+            }
+            else
+            {
+                OnUnlockUI?.Invoke();
             }
             ReadMotion();
         }
@@ -175,6 +184,42 @@ namespace Assets.GoemetryDrawer.Scripts.InputControl
             
             OnMotionMesh?.Invoke(_speedMesh * Time.deltaTime * velocity);
             _motionMesh = Vector3.zero;
+        }
+
+        private void InputDigit()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                OnColorMeshChanged?.Invoke(1);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                OnColorMeshChanged?.Invoke(2);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                OnColorMeshChanged?.Invoke(3);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                OnColorMeshChanged?.Invoke(4);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                OnColorMeshChanged?.Invoke(5);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                OnColorMeshChanged?.Invoke(6);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                OnColorMeshChanged?.Invoke(6);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                OnColorMeshChanged?.Invoke(7);
+            }
         }
 
         private void LockCursor()

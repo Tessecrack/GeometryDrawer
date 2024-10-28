@@ -13,7 +13,7 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
 
         public string Id { get; private set; } = Guid.NewGuid().ToString();
 
-        private MeshRenderer _meshRenderer;
+        protected MeshRenderer _meshRenderer;
 
         public bool IsHighlightSelected { get; private set; }
         public bool IsHighlightStandart { get; private set; } = true;
@@ -34,6 +34,11 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
         }
 
         protected abstract void Initialize();
+
+        public virtual void SetStandartMaterial(Material mat)
+        {
+            _standartMaterial = mat;
+        }
 
         public virtual void HighlightStandart()
         {

@@ -32,6 +32,8 @@ public class MainSceneEntryPoint : MonoBehaviour
 
     private List<BaseView> _allViewsWithMeshes = new();
 
+    private ListMaterials _materials;
+
     public void Run(DIContainer container)
     {
         container.RegisterInstance(_selectorMesh).AsSingle();
@@ -82,10 +84,7 @@ public class MainSceneEntryPoint : MonoBehaviour
         _servicesView.Bind(container);
         _capsuleView.Bind(container);
 
-        motionViewModel.OnChangedRotateX += HandlerRotationX;
-        motionViewModel.OnChangedRotateY += HandlerRotationY;
-        motionViewModel.OnChangedRotateZ += HandlerRotationZ;
-
+        _materials = GetComponent<ListMaterials>();
         _meshesGenerator = GetComponent<MeshesGenerator>();
         container.RegisterInstance(_meshesGenerator).AsSingle();
 
@@ -104,14 +103,35 @@ public class MainSceneEntryPoint : MonoBehaviour
         fpController.OnMotionMesh += HandlerMotionMesh;
         fpController.OnRemoveMesh += HandlerRemoveMesh;
 
+        fpController.OnLockUI += HandlerLockUI;
+        fpController.OnUnlockUI += HandlerUnlockUI;
+        fpController.OnColorMeshChanged += HandlerColorChange;
+
         servicesViewModel.OnRemoved += HandlerRemoveMesh;
+    }
+
+    private void HandlerColorChange(int index)
+    {
+        var newMat = _materials.GetMaterial(index);
+        _selectorMesh.SelectedMesh?.SetStandartMaterial(newMat);
+        _selectorMesh.SelectedMesh?.HighlightStandart();
+    }
+
+    private void HandlerUnlockUI()
+    {
+        _selectorMesh.SelectedMesh?.BindedView.Show();
+    }
+
+    private void HandlerLockUI()
+    {
+        _selectorMesh.SelectedMesh?.BindedView.Hide();
     }
 
     private void HandlerRemoveMesh()
     {
         _selectorMesh.SelectedMesh?.BindedView.Hide();
         _selectorMesh.SelectedMesh?.Remove();
-        _selectorMesh.SelectedMesh = null; // dangerous
+        _selectorMesh.SelectedMesh = null;
     }
 
     private void HandlerMotionMesh(Vector3 direction)
@@ -148,18 +168,31 @@ public class MainSceneEntryPoint : MonoBehaviour
     public void HandlerSphereButtonClick()
     {
         HideAllViewsWithMeshes();
-
+        _selectorMesh.SelectedMesh?.HighlightStandart();
         var newFigure = _meshesGenerator.GenerateSphereMesh();
         _selectorMesh.SelectedMesh = newFigure;
         _sphereView.Show();
         _cachedView = _sphereView;
         newFigure.BindView(_cachedView);
+        //_cachedView.UpdateValues();
+    }
+
+    private void HandlerParallelepipedClick()
+    {
+        HideAllViewsWithMeshes();
+        _selectorMesh.SelectedMesh?.HighlightStandart();
+        var newFigure = _meshesGenerator.GenerateParallelepipedMesh();
+        _selectorMesh.SelectedMesh = newFigure;
+        _paralView.Show();
+        _cachedView = _paralView;
+        newFigure.BindView(_cachedView);
+        //_cachedView.UpdateValues();
     }
 
     private void HandlerCapsuleButtonClick()
     {
         HideAllViewsWithMeshes();
-
+        _selectorMesh.SelectedMesh?.HighlightStandart();
         _capsuleView.Show();
         _cachedView = _capsuleView;
     }
@@ -167,35 +200,9 @@ public class MainSceneEntryPoint : MonoBehaviour
     private void HandlerPrismButtonClick()
     {
         HideAllViewsWithMeshes();
-
+        _selectorMesh.SelectedMesh?.HighlightStandart();
         _prismView.Show();
         _cachedView = _prismView;
-    }
-
-    private void HandlerParallelepipedClick()
-    {
-        HideAllViewsWithMeshes();
-
-        var newFigure = _meshesGenerator.GenerateParallelepipedMesh();
-        _selectorMesh.SelectedMesh = newFigure;
-        _paralView.Show();
-        _cachedView = _paralView;
-        newFigure.BindView(_cachedView);
-    }
-
-    private void HandlerRotationX(float xValue)
-    {
-        _cachedView.RotateX(xValue);
-    }
-
-    private void HandlerRotationY(float yValue)
-    {
-        _cachedView.RotateY(yValue);
-    }
-
-    private void HandlerRotationZ(float zValue)
-    {
-        _cachedView.RotateZ(zValue);
     }
 
     private void HideAllViewsWithMeshes()

@@ -38,21 +38,21 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
             }
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition); // damn input
             var isButtonClick = _needSelect;
-            if (Physics.Raycast(ray, out var hit, 100))
+            if (isButtonClick)
             {
-                var bm = hit.collider.gameObject.GetComponent<BaseMesh>();
-                if (bm != null)
+                if (Physics.Raycast(ray, out var hit, 100))
                 {
-                    if (isButtonClick)
+                    var bm = hit.collider.gameObject.GetComponent<BaseMesh>();
+                    if (bm != null)
                     {
                         OnSelected?.Invoke(bm);
                         return;
                     }
+                    else
+                    {
+                        OnNothingSelected?.Invoke();
+                    }
                 }
-            }
-            if (isButtonClick)
-            {
-                OnNothingSelected?.Invoke();
             }
         }
 
