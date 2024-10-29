@@ -1,12 +1,13 @@
 ﻿using Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views;
 using System;
-using TMPro;
 using UnityEngine;
 
 namespace Assets.GoemetryDrawer.Scripts.Utils
 {
     public abstract class BaseMesh : MonoBehaviour
     {
+        protected const int MIN_AMOUNT_VERTICES = 3;
+
         [SerializeField] protected Material _standartMaterial;
 
         [SerializeField] protected Material _selectedMaterial;
@@ -79,9 +80,39 @@ namespace Assets.GoemetryDrawer.Scripts.Utils
             this.transform.position = newPosition;
         }
 
+        public Primitive GeneratePlane(int amountVertices = 3, float width = 1, float height = 1)
+        {
+            var angleStep =  (2 * Mathf.PI) / amountVertices;
+            var countTriangles = amountVertices - 2;
+            var countTrianglesPoints = 3 * amountVertices;
+
+            var vertices = new Vector3[amountVertices];
+            for (int i = 0; i < amountVertices; ++i)
+            {
+                var vertice = new Vector3(Mathf.Cos(angleStep * i) * width, Mathf.Sin(angleStep * i) * height, 0);
+                vertices[i] = vertice;
+            }
+
+            var triangles = new int[countTrianglesPoints];
+            for (int i = 0; i < countTriangles; ++i)
+            {
+                triangles[i * 3] = 0;
+                triangles[(i * 3) + 1] = i + 1;
+                triangles[(i * 3) + 2] = i + 2;
+            }
+
+            return new Primitive { Triangles = triangles, Vertices = vertices };
+        }
+
         public virtual void Remove()
         {
             Destroy(this.gameObject);
         }
+    }
+
+    public class Primitive
+    {
+        public Vector3[] Vertices { get; set; }
+        public int[] Triangles { get; set; }
     }
 }

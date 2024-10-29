@@ -6,7 +6,7 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
     {
         [SerializeField] private float _width = 5f;
         [SerializeField] private float _height = 5f;
-        [SerializeField] private float _length = 5f;
+        [SerializeField] private float _depth = 5f;
 
         private float _previousWidth;
         private float _previousHeight;
@@ -22,7 +22,7 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
 
         public float Width => _width;
         public float Height => _height;
-        public float Length => _length;
+        public float Depth => _depth;
 
 
 
@@ -34,7 +34,7 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
             
             _width = 15f;
             _height = 15f;
-            _length = 15f;
+            _depth = 15f;
 
             UpdatePrimitive();
         }
@@ -59,12 +59,14 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
 
         public void UpdateLength(float newLength)
         {
-            _length = newLength;
+            _depth = newLength;
             UpdatePrimitive();
         }
 
         private void UpdatePrimitive()
         {
+            //var frontPlane = GeneratePlane(4, _width, _height);
+
             GenerateVertices();
             GenerateTriangles();
 
@@ -83,16 +85,16 @@ namespace Assets.GoemetryDrawer.Scripts.Utils.Meshes
 
             _vertices = new Vector3[8]
             {
-                new Vector3(posX - _width / 2, posY - _height / 2, posZ - _length / 2),   // 0
-                new Vector3(posX - _width / 2, posY + _height / 2, posZ - _length / 2),   // 1
-                new Vector3(posX + _width / 2, posY - _height / 2, posZ - _length / 2),   // 2
-                new Vector3(posX + _width / 2, posY + _height / 2, posZ - _length / 2),   // 3
+                new Vector3(posX - _width / 2, posY - _height / 2, posZ - _depth / 2),   // 0
+                new Vector3(posX - _width / 2, posY + _height / 2, posZ - _depth / 2),   // 1
+                new Vector3(posX + _width / 2, posY - _height / 2, posZ - _depth / 2),   // 2
+                new Vector3(posX + _width / 2, posY + _height / 2, posZ - _depth / 2),   // 3
 
-                new Vector3(posX - _width / 2, posY - _height / 2, posZ + _length / 2),   // 4
-                new Vector3(posX - _width / 2, posY + _height / 2, posZ + _length / 2),   // 5
+                new Vector3(posX - _width / 2, posY - _height / 2, posZ + _depth / 2),   // 4
+                new Vector3(posX - _width / 2, posY + _height / 2, posZ + _depth / 2),   // 5
 
-                new Vector3(posX + _width / 2, posY + _height / 2, posZ + _length / 2),    // 6
-                new Vector3(posX + _width / 2, posY - _height / 2, posZ + _length / 2)     // 7
+                new Vector3(posX + _width / 2, posY + _height / 2, posZ + _depth / 2),    // 6
+                new Vector3(posX + _width / 2, posY - _height / 2, posZ + _depth / 2)     // 7
             };
         }
 

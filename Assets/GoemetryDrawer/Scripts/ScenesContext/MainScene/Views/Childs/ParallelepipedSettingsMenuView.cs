@@ -28,7 +28,7 @@ namespace Assets.GoemetryDrawer.Scripts.ScenesContext.MainScene.Views.Childs
             var selectedMesh = (ParallelepipedMesh)_meshSelector.SelectedMesh;
             _sliderWidth.value = selectedMesh.Width;
             _sliderHeight.value = selectedMesh.Height;
-            _sliderLength.value = selectedMesh.Length;
+            _sliderLength.value = selectedMesh.Depth;
         }
 
         public void HandlerSliderHeight()

@@ -56,7 +56,6 @@ namespace Assets.GoemetryDrawer.Scripts.Root
             mainSceneEntryPoint.OnCloseApp += CloseApp;
             var mainSceneContainer = new DIContainer(_diContainer);
             mainSceneEntryPoint.Run(mainSceneContainer);
-            Debug.Log("hello");
         }
 
         private IEnumerator LoadScene(string sceneName)
